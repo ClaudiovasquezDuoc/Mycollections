@@ -1,0 +1,42 @@
+ion-header {
+    padding: 20px 20px 20px 20px;
+    background-color: #6a6a6b;
+    border-radius: 0px 0px 30px 30px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    ion-title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #ffffff;
+    }
+}
+ion-content {
+    --background: #adadad;
+    padding: 20px;
+}
+
+ion-content h1 {
+    font-size: 24px;
+    font-weight: 600;
+    color: #fbfbff;
+    text-align: center;
+    padding: 20px;
+}
+ion-content p {
+    font-size: 16px;
+    color: #ffffff;
+    text-align: center;
+}
+ion-content ion-input {
+    --padding-start: 10px;
+    --padding-end: 10px;
+    --background: #ffffff;
+    --border-radius: 20px;
+}
+ion-content strong {
+    color: #2a1de3;
+}
+#ingresar::part(native) {
+    font-size: 16px;
+    border-radius: 25px;      // Bordes redondeados
+    padding: 15px;
+}

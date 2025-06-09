@@ -1,0 +1,92 @@
+<ion-header [translucent]="true">
+  <ion-grid> 
+    <ion-row>
+      <ion-col size="12" class="ion-text-center">
+        <ion-title id="titulo">My Collections</ion-title>
+      </ion-col>
+      <ion-col size="12" class="ion-text-center">
+        <ion-title id="subtitulo">Bienvenido</ion-title>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-header>
+
+<ion-content id="contenido" [fullscreen]="true">
+  <form #loginForm="ngForm" (ngSubmit)="ingresar()">
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <h1>Ingresar</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12">
+          <div class="login">
+            <ion-row>
+              <ion-col size="6" class="ion-text-left">
+                <p>Usuario</p>
+              </ion-col>
+              <ion-col size="6" class="ion-text-left">
+                <ion-input
+                  type="text"
+                  placeholder="Ingrese su usuario"
+                  [(ngModel)]="usuario"
+                  name="usuario"
+                  required
+                  pattern="^[a-zA-Z0-9]{3,8}$"
+                  #usuarioCtrl="ngModel">
+                </ion-input>
+                <ion-text color="danger" *ngIf="usuarioCtrl.invalid && usuarioCtrl.touched">
+                  <small>
+                    Usuario: 3-8 caracteres alfanuméricos.
+                  </small>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+            <ion-row>
+              <ion-col size="6" class="ion-text-left">
+                <p>Contraseña</p>
+              </ion-col>
+              <ion-col size="6" class="ion-text-left">
+                <ion-input
+                  type="password"
+                  placeholder="Ingrese su contraseña"
+                  [(ngModel)]="contrasena"
+                  name="contrasena"
+                  required
+                  pattern="^[0-9]{4}$"
+                  maxlength="4"
+                  #contrasenaCtrl="ngModel">
+                </ion-input>
+                <ion-text color="danger" *ngIf="contrasenaCtrl.invalid && contrasenaCtrl.touched">
+                  <small>
+                    Contraseña: 4 dígitos numéricos.
+                  </small>
+                </ion-text>
+              </ion-col>
+            </ion-row>
+          </div>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <strong>Crea tu cuenta gratis</strong>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4"></ion-col>
+        <ion-col size="4" class="ion-text-center ion-align-self-center">
+          <ion-button
+            id="ingresar"
+            expand="full"
+            color="dark"
+            type="submit"
+            [disabled]="loginForm.invalid">
+            Ingresar
+          </ion-button>
+        </ion-col>
+        <ion-col size="4"></ion-col>
+      </ion-row>
+    </ion-grid>
+  </form>
+</ion-content>

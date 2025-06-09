@@ -1,0 +1,29 @@
+
+ion-content {
+  background: #929292;
+}
+
+ion-title {
+  color: #f5f5f5;
+}
+
+ion-buttons {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+:host {
+  --width: 250px;
+  --max-width: 90vw;
+  --height: 250px;
+  --max-height: 90vh;
+}
+
+.modal-tamano-personalizado .modal-wrapper {
+  width: 250px;
+  max-width: 90vw;
+  height: 250px;
+  max-height: 90vh;
+  border-radius: 16px;
+}

@@ -1,0 +1,60 @@
+<ion-menu side="start" menuId="customMenu" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="dark">
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item routerLink="/home" routerDirection="root">
+        <ion-icon name="create-outline" slot="start"></ion-icon>
+        <ion-label>Modificar datos</ion-label>
+      </ion-item>
+      <ion-item routerLink="/menu-user" routerDirection="root">
+        <ion-icon name="person-outline" slot="start"></ion-icon>
+        <ion-label>Perfil de usuario</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
+
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar color="dark">
+      <ion-buttons slot="start">
+        <ion-menu-button menu="customMenu"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Skeleton APP</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <ion-content [fullscreen]="true" class="ion-padding">
+    <ion-list>
+      <ion-item 
+        button 
+        (click)="expandido = expandido === 1 ? null : 1"
+        [color]="expandido === 1 ? 'dark' : ''">
+        <ion-label><strong>¿Quiénes somos?</strong></ion-label>
+      </ion-item>
+      <div *ngIf="expandido === 1" class="item-expandido">
+        <p>
+          Presentacion de una aplicación desarrollada para demostrar funcionalidades con Ionic y Angular Material.<br>
+          Nuestro objetivo es brindar una experiencia de usuario intuitiva y atractiva.
+        </p>
+      </div>
+
+      <ion-item 
+        button 
+        (click)="expandido = expandido === 2 ? null : 2"
+        [color]="expandido === 2 ? 'dark' : ''">
+        <ion-label><strong>Contacto</strong></ion-label>
+      </ion-item>
+      <div *ngIf="expandido === 2" class="item-expandido">
+        <p>
+          Email: contacto&#64;skeletonapp.com<br>
+          Teléfono: +56 9 1234 5678
+        </p>
+      </div>
+    </ion-list>
+  </ion-content>
+</div>

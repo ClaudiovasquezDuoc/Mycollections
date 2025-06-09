@@ -1,0 +1,59 @@
+.datos-bloque {
+  background: rgba(40, 40, 40, 0.7);
+  border-radius: 16px;
+  padding: 1rem;
+  margin-top: 2rem;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  max-width: 320px;      // Cambia el ancho máximo
+  margin-left: 0;        // Alinea a la izquierda
+  margin-right: auto;    // El resto del espacio queda a la derecha
+  transition: background 0.3s;
+}
+
+.datos-toggle {
+  width: 100%;
+  text-align: left;
+  font-weight: bold;
+  font-size: 1.1rem;
+  --background: transparent;
+  --color: #fff;
+}
+
+.datos-detalle {
+  margin-top: 1rem;
+  animation: fadeInDatos 0.3s;
+}
+
+@keyframes fadeInDatos {
+  from { opacity: 0; transform: translateY(-10px);}
+  to   { opacity: 1; transform: translateY(0);}
+}
+ion-content {
+  --background: #adadad;
+  color: #fff; // Texto blanco para contraste
+}
+
+.mat-carousel-container {
+  display: flex;
+  overflow-x: auto;
+  gap: 1rem;
+  padding: 1rem 0;
+  scrollbar-width: none; 
+  -ms-overflow-style: none; 
+}
+.mat-carousel-container::-webkit-scrollbar {
+  display: none; 
+}
+.mat-carousel-card {
+  min-width: 220px;
+  max-width: 260px;
+  flex: 0 0 auto;
+  cursor: pointer;
+}
+.agregar-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e3f2fd;
+  color: #1976d2;
+}
