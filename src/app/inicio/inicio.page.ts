@@ -8,6 +8,9 @@ import { Router } from '@angular/router';
   standalone: false
 })
 export class InicioPage implements OnInit {
+  scale = 1;
+  private growing = true;
+  private intervalId: any;
 
   constructor(private router: Router) { }
 

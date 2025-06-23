@@ -65,6 +65,13 @@
       </div>
     </div>
     <!-- Biblioteca Carrusel -->
+    <div class="biblioteca-container">
+      <ion-col size="12" class="ion-text-left">
+        <ion-row>
+          <h2>Mi Biblioteca</h2> 
+        </ion-row>
+      </ion-col>
+    </div>
     <div class="mat-carousel-container">
       <mat-card *ngFor="let card of biblioteca; let i = index" class="mat-carousel-card">
         <img mat-card-image [src]="card.imagen || getImagenLibro(card.titulo)" alt="Portada del libro" />
@@ -74,15 +81,17 @@
         <mat-card-content>
           {{ card.descripcion }}
         </mat-card-content>
-        <button mat-icon-button color="primary" (click)="editarCard(i)">
-          <mat-icon>edit</mat-icon>
-        </button>
-        <button mat-icon-button color="warn" (click)="eliminarCard(i)">
-          <mat-icon>delete</mat-icon>
-        </button>
-
-        <!-- Formulario de edición dentro del *ngFor -->
-        <div *ngIf="editando === i" class="editar-form">
+        <div class="card-actions">
+          <button mat-icon-button color="primary" (click)="editarCardBiblioteca(i)">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-icon-button color="warn" (click)="eliminarCardBiblioteca(i)">
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+        
+        <!-- Formulario de edición dentro del *ngFor* -->
+        <div *ngIf="editandoBiblioteca === i" class="editar-form">
           <mat-form-field>
             <input matInput [(ngModel)]="card.titulo" placeholder="Título">
           </mat-form-field>
@@ -90,16 +99,68 @@
             <textarea matInput [(ngModel)]="card.descripcion" placeholder="Descripción"></textarea>
           </mat-form-field>
           <input type="file" (change)="onFileSelected($event, card)">
-          <button mat-button color="primary" (click)="guardarEdicion()">Guardar</button>
-          <button mat-button (click)="cancelarEdicion()">Cancelar</button>
+          <button mat-button color="primary" (click)="guardarEdicionBiblioteca()">Guardar</button>
+          <button mat-button (click)="cancelarEdicionBiblioteca()">Cancelar</button>
         </div>
       </mat-card>
-      <mat-card class="mat-carousel-card agregar-card" (click)="agregarCard()">
+      <mat-card class="mat-carousel-card agregar-card" (click)="agregarCardBiblioteca()">
         <mat-card-header>
           <mat-icon color="primary" fontIcon="add_circle" style="font-size: 48px;"></mat-icon>
           <mat-card-title>Agregar libro</mat-card-title>
         </mat-card-header>
       </mat-card>
+    </div>
+    <div class="colecciones-container">
+      <div *ngFor="let coleccion of colecciones; let ci = index" class="coleccion">
+        <ion-item button (click)="toggleColeccion(ci)">
+          <ion-label *ngIf="editandoNombreColeccion !== ci">
+            <strong>{{ coleccion.nombre }}</strong>
+            <button mat-icon-button (click)="$event.stopPropagation(); editarNombreColeccion(ci)">
+              <mat-icon>edit</mat-icon>
+            </button>
+          </ion-label>
+          <div *ngIf="editandoNombreColeccion === ci" style="display: flex; align-items: center; width: 100%;">
+            <input [(ngModel)]="coleccion.nombre" style="flex: 1; margin-right: 8px;" />
+            <button mat-icon-button color="primary" (click)="$event.stopPropagation(); guardarNombreColeccion()">
+              <mat-icon>check</mat-icon>
+            </button>
+            <button mat-icon-button (click)="$event.stopPropagation(); cancelarNombreColeccion()">
+              <mat-icon>close</mat-icon>
+            </button>
+          </div>
+          <ion-icon [name]="coleccion.expandida ? 'chevron-up-outline' : 'chevron-down-outline'" slot="end"></ion-icon>
+        </ion-item>
+        <div *ngIf="coleccion.expandida" class="mat-carousel-container">
+          <mat-card *ngFor="let card of coleccion.biblioteca; let i = index" class="mat-carousel-card">
+            <img mat-card-image [src]="card.imagen || getImagenLibro(card.titulo)" alt="Portada del libro" />
+            <mat-card-header>
+              <mat-card-title>{{ card.titulo }}</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              {{ card.descripcion }}
+            </mat-card-content>
+            <div class="card-actions">
+              <button mat-icon-button color="primary" (click)="editarCard(ci, i)">
+                <mat-icon>edit</mat-icon>
+              </button>
+              <button mat-icon-button color="warn" (click)="eliminarCard(ci, i)">
+                <mat-icon>delete</mat-icon>
+              </button>
+            </div>
+            <!-- Formulario de edición aquí si lo necesitas -->
+          </mat-card>
+          <mat-card class="mat-carousel-card agregar-card" (click)="agregarCard(ci)">
+            <mat-card-header>
+              <mat-icon color="primary" fontIcon="add_circle" style="font-size: 48px;"></mat-icon>
+              <mat-card-title>Agregar libro</mat-card-title>
+            </mat-card-header>
+          </mat-card>
+        </div>
+      </div>
+      <ion-button expand="block" color="primary" (click)="agregarColeccion()">
+        <ion-icon name="add-circle-outline" slot="start"></ion-icon>
+        Agregar colección
+      </ion-button>
     </div>
   </ion-content>
 </div>

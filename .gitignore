@@ -68,3 +68,29 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Android Studio/IntelliJ
+Android/
+.idea/
+*.iml
+
+# Gradle
+.gradle/
+build/
+*/build/
+
+# Local properties
+local.properties
+
+# Log/OS files
+*.log
+*.swp
+.DS_Store
+
+# Android specific
+captures/
+output.json
+
+# Keystore files
+*.jks
+*.keystore

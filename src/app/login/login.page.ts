@@ -17,9 +17,12 @@ export class LoginPage {
   ingresar() {
     if (this.usuario && this.contrasena) {
       localStorage.setItem('usuario', this.usuario);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/libreria']);
     } else {
-      alert('Ingrese usuario y contraseña');
+      alert('Ingrese usuario y contraseña correctamente');
     }
+  }
+  irRegistro(){
+    this.router.navigate(['/registro']);
   }
 }

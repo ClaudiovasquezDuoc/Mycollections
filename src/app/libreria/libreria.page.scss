@@ -37,9 +37,12 @@ ion-content {
   display: flex;
   overflow-x: auto;
   gap: 1rem;
-  padding: 1rem 0;
+  padding: 1rem 10px;
   scrollbar-width: none; 
   -ms-overflow-style: none; 
+  border-radius: 28px;
+  background: rgba(209, 209, 209, 0.7);
+  
 }
 .mat-carousel-container::-webkit-scrollbar {
   display: none; 
@@ -49,11 +52,47 @@ ion-content {
   max-width: 260px;
   flex: 0 0 auto;
   cursor: pointer;
+  border-radius: 28px;
+  border: #242424 solid 10px;
+}
+.mat-carousel-card:hover {
+  transform: scale(1.05);
+  transition: transform 0.3s ease;
+}
+.mat-carousel-card img {
+  width: auto;
+  height: 170px;
+  border-radius: 28px 28px 0 0;
+  padding: 2px;
+}
+.mat-carousel-card h3 {
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+  padding: 0 1rem;
 }
 .agregar-card {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #e3f2fd;
+  background: #ffffff;
   color: #1976d2;
+}
+.card-actions {
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+.colecciones-container{
+  border-radius: 10px;
+  border-color: #242424;
+  border-style: solid;
+  width: auto;
+  height: 180px;
+}
+.coleccion{
+  border-radius: 25px;
+  border-color: aqua ;
+
 }

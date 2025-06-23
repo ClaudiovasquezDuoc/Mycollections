@@ -1,6 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
+interface Libro {
+  id: string; // o number, según tu preferencia y la base de datos
+  titulo: string;
+  descripcion: string;
+  imagen: string;
+}
+
+interface Coleccion {
+  id: string;
+  nombre: string;
+  expandida: boolean;
+  biblioteca: Libro[];
+}
+
 @Component({
   selector: 'app-libreria',
   templateUrl: 'libreria.page.html',
@@ -16,7 +30,21 @@ export class LibreriaPage implements OnInit {
     { titulo: 'Libro 2', descripcion: 'Descripción del libro 2', imagen: '' }
   ];
 
-  editando: number | null = null;
+  colecciones: Coleccion[] = [
+    {
+      id: Date.now().toString() + Math.random().toString(36).substring(2), // <-- agrega el id
+      nombre: 'Colección 1',
+      expandida: false,
+      biblioteca: [
+        // Libros aquí
+      ]
+    },
+    // Puedes agregar más colecciones
+  ];
+
+  editando: {ci: number, i: number} | null = null;
+  editandoBiblioteca: number | null = null;
+  editandoNombreColeccion: number | null = null;
 
   constructor(private http: HttpClient) {}
 
@@ -27,8 +55,9 @@ export class LibreriaPage implements OnInit {
     }
   }
 
-  editarCard(index: number) {
-    this.editando = index;
+  // Para editar un libro de una colección
+  editarCard(ci: number, i: number) {
+    this.editando = {ci, i};
   }
 
   guardarEdicion() {
@@ -50,14 +79,17 @@ export class LibreriaPage implements OnInit {
     }
   }
 
-  agregarCard() {
-    const nuevo = {
-      titulo: `Libro ${this.biblioteca.length + 1}`,
-      descripcion: 'Buscando descripción...',
+  eliminarCard(ci: number, i: number) {
+    this.colecciones[ci].biblioteca.splice(i, 1);
+  }
+
+  agregarCard(ci: number) {
+    this.colecciones[ci].biblioteca.push({
+      id: Date.now().toString() + Math.random().toString(36).substring(2),
+      titulo: 'Nuevo libro',
+      descripcion: '',
       imagen: ''
-    };
-    this.biblioteca.push(nuevo);
-    this.buscarDescripcionLibro(nuevo.titulo, nuevo);
+    });
   }
 
   buscarDescripcionLibro(titulo: string, card: any) {
@@ -78,10 +110,6 @@ export class LibreriaPage implements OnInit {
     });
   }
 
-  eliminarCard(index: number) {
-    this.biblioteca.splice(index, 1);
-  }
-
   getImagenLibro(titulo: string): string {
     switch (titulo) {
       case 'Libro 1':
@@ -91,6 +119,59 @@ export class LibreriaPage implements OnInit {
       default:
         return 'assets/img/default.jpg';
     }
+  }
+
+  toggleColeccion(index: number) {
+    this.colecciones[index].expandida = !this.colecciones[index].expandida;
+  }
+
+  agregarColeccion() {
+    this.colecciones.push({
+      id: Date.now().toString() + Math.random().toString(36).substring(2),
+      nombre: `Colección ${this.colecciones.length + 1}`,
+      expandida: false,
+      biblioteca: []
+    });
+  }
+
+  // Para la biblioteca principal
+  editarCardBiblioteca(i: number) {
+    this.editandoBiblioteca = i;
+  }
+
+  guardarEdicionBiblioteca() {
+    this.editandoBiblioteca = null;
+  }
+
+  cancelarEdicionBiblioteca() {
+    this.editandoBiblioteca = null;
+  }
+
+  eliminarCardBiblioteca(i: number) {
+    this.biblioteca.splice(i, 1);
+  }
+
+  agregarCardBiblioteca() {
+    this.biblioteca.push({
+      titulo: 'Nuevo libro',
+      descripcion: '',
+      imagen: ''
+    });
+  }
+
+  // Método para activar la edición
+  editarNombreColeccion(ci: number) {
+    this.editandoNombreColeccion = ci;
+  }
+
+  // Guardar el nombre editado
+  guardarNombreColeccion() {
+    this.editandoNombreColeccion = null;
+  }
+
+  // Cancelar la edición
+  cancelarNombreColeccion() {
+    this.editandoNombreColeccion = null;
   }
 }
 
