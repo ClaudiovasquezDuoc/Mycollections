@@ -10,10 +10,10 @@
           <h1>Registrar una cuenta</h1>
         </ion-col>
       </ion-row>
-      <ion-row>
-        <ion-col size="12">
+      <ion-row >
+        <ion-col size="10" class="col-personalizada">
           <ion-item class="ion-align-items-center">
-            <ion-label position="start" style="min-width: 120px;">Nombre</ion-label>
+            <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Nombre</ion-label>
             <ion-input formControlName="nombre"></ion-input>
           </ion-item>
           <ion-text color="danger" *ngIf="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched">
@@ -23,9 +23,9 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="12">
+        <ion-col size="12" class="col-personalizada">
           <ion-item class="ion-align-items-center">
-            <ion-label position="start" style="min-width: 120px;">Apellido</ion-label>
+            <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Apellido</ion-label>
             <ion-input formControlName="apellido"></ion-input>
           </ion-item>
           <ion-text color="danger" *ngIf="registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched">
@@ -35,9 +35,9 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="12">
+        <ion-col size="12" class="col-personalizada">
           <ion-item class="ion-align-items-center">
-            <ion-label position="start" style="min-width: 120px;">Contraseña</ion-label>
+            <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Contraseña</ion-label>
             <ion-input
               [type]="showPassword ? 'text' : 'password'"
               formControlName="contraseña">
@@ -53,9 +53,9 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="12">
+        <ion-col size="12" class="col-personalizada">
           <ion-item class="ion-align-items-center">
-            <ion-label position="start" style="min-width: 120px;">Nivel de educación</ion-label>
+            <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Nivel de educación</ion-label>
             <ion-select formControlName="nivelEducacion" placeholder="Seleccione su nivel de educación">
               <ion-select-option value="primaria">Primaria</ion-select-option>
               <ion-select-option value="secundaria">Secundaria</ion-select-option>
@@ -69,10 +69,10 @@
       </ion-row>
       <!-- Fecha de nacimiento -->
       <ion-row class="ion-align-items-center">
-        <ion-col size="4" size-sm="4" style="display: flex; align-items: center;">
-          <ion-label style="min-width: 120px;">Fecha de nacimiento</ion-label>
+        <ion-col class="col-personalizada" size="4" size-sm="4" style="display: flex; align-items: center;">
+          <ion-label class="label-personalizado" style="min-width: 120px;">Fecha de nacimiento</ion-label>
         </ion-col>
-        <ion-col size="6" size-sm="8">
+        <ion-col class="col-personalizada" size="6" size-sm="8">
           <ion-datetime-button datetime="fechaNacimientoModal" expand="block"></ion-datetime-button>
           <ion-text color="danger" *ngIf="registroForm.get('fechaNacimiento')?.invalid && registroForm.get('fechaNacimiento')?.touched">
             <small *ngIf="registroForm.get('fechaNacimiento')?.errors?.['required']">La fecha de nacimiento es obligatoria.</small>
@@ -81,9 +81,9 @@
       </ion-row>
       <!--Genero-->
       <ion-row>
-        <ion-col size="12">
+        <ion-col size="12" class="col-personalizada">
           <ion-item class="ion-align-items-center">
-            <ion-label position="start" style="min-width: 120px;">Género</ion-label>
+            <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Género</ion-label>
             <ion-select formControlName="genero" placeholder="Seleccione su género">
               <ion-select-option value="masculino">Masculino</ion-select-option>
               <ion-select-option value="femenino">Femenino</ion-select-option>
