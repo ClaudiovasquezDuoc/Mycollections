@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 interface Libro {
   id: string; // o number, según tu preferencia y la base de datos
@@ -30,23 +31,11 @@ export class LibreriaPage implements OnInit {
     { titulo: 'Libro 2', descripcion: 'Descripción del libro 2', imagen: '' }
   ];
 
-  colecciones: Coleccion[] = [
-    {
-      id: Date.now().toString() + Math.random().toString(36).substring(2), // <-- agrega el id
-      nombre: 'Colección 1',
-      expandida: false,
-      biblioteca: [
-        // Libros aquí
-      ]
-    },
-    // Puedes agregar más colecciones
-  ];
 
-  editando: {ci: number, i: number} | null = null;
+  editando: { ci: number, i: number } | null = null;
   editandoBiblioteca: number | null = null;
-  editandoNombreColeccion: number | null = null;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   ngOnInit() {
     const data = localStorage.getItem('usuarioData');
@@ -57,7 +46,7 @@ export class LibreriaPage implements OnInit {
 
   // Para editar un libro de una colección
   editarCard(ci: number, i: number) {
-    this.editando = {ci, i};
+    this.editando = { ci, i };
   }
 
   guardarEdicion() {
@@ -79,36 +68,6 @@ export class LibreriaPage implements OnInit {
     }
   }
 
-  eliminarCard(ci: number, i: number) {
-    this.colecciones[ci].biblioteca.splice(i, 1);
-  }
-
-  agregarCard(ci: number) {
-    this.colecciones[ci].biblioteca.push({
-      id: Date.now().toString() + Math.random().toString(36).substring(2),
-      titulo: 'Nuevo libro',
-      descripcion: '',
-      imagen: ''
-    });
-  }
-
-  buscarDescripcionLibro(titulo: string, card: any) {
-    const url = `https://openlibrary.org/search.json?title=${encodeURIComponent(titulo)}`;
-    this.http.get<any>(url).subscribe(res => {
-      if (res.docs && res.docs.length > 0) {
-        const workKey = res.docs[0].key;
-        this.http.get<any>(`https://openlibrary.org${workKey}.json`).subscribe(work => {
-          card.descripcion = work.description?.value || work.description || 'Sin descripción disponible';
-        }, () => {
-          card.descripcion = 'Sin descripción disponible';
-        });
-      } else {
-        card.descripcion = 'Sin descripción disponible';
-      }
-    }, () => {
-      card.descripcion = 'Sin descripción disponible';
-    });
-  }
 
   getImagenLibro(titulo: string): string {
     switch (titulo) {
@@ -120,20 +79,6 @@ export class LibreriaPage implements OnInit {
         return 'assets/img/default.jpg';
     }
   }
-
-  toggleColeccion(index: number) {
-    this.colecciones[index].expandida = !this.colecciones[index].expandida;
-  }
-
-  agregarColeccion() {
-    this.colecciones.push({
-      id: Date.now().toString() + Math.random().toString(36).substring(2),
-      nombre: `Colección ${this.colecciones.length + 1}`,
-      expandida: false,
-      biblioteca: []
-    });
-  }
-
   // Para la biblioteca principal
   editarCardBiblioteca(i: number) {
     this.editandoBiblioteca = i;
@@ -159,19 +104,21 @@ export class LibreriaPage implements OnInit {
     });
   }
 
-  // Método para activar la edición
-  editarNombreColeccion(ci: number) {
-    this.editandoNombreColeccion = ci;
+  async tomarFotoLibro(index: number) {
+    try {
+      const image = await Camera.getPhoto({
+        quality: 80,
+        allowEditing: false,
+        resultType: CameraResultType.DataUrl,
+        source: CameraSource.Camera
+      });
+      this.biblioteca[index].imagen = image.dataUrl || '';
+    } catch (error) {
+      console.log('Cámara cancelada o error:', error);
+    }
   }
 
-  // Guardar el nombre editado
-  guardarNombreColeccion() {
-    this.editandoNombreColeccion = null;
-  }
 
-  // Cancelar la edición
-  cancelarNombreColeccion() {
-    this.editandoNombreColeccion = null;
-  }
 }
+
 
