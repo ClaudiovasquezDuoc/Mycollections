@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Camera, CameraResultType } from '@capacitor/camera';
+import { DbserviceService } from '../services/dbservice.service'; // Importa tu servicio
+
 
 @Component({
   selector: 'app-registro',
@@ -13,9 +14,11 @@ export class RegistroPage {
   showPassword = false;
   registroForm: FormGroup;
 
-
-
-  constructor(private fb: FormBuilder, private router: Router) {
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private dbService: DbserviceService // Inyecta el servicio
+  ) {
     this.registroForm = this.fb.group({
       nombre: ['', [
         Validators.required,
@@ -35,10 +38,19 @@ export class RegistroPage {
     });
   }
 
-  onSubmit() {
+  async onSubmit() {
     if (this.registroForm.valid) {
       const datos = this.registroForm.value;
-      localStorage.setItem('usuarioData', JSON.stringify(datos));
+      await this.dbService.addUsuario(
+        datos.nombre,
+        datos.apellido,
+        datos.contraseña,
+        datos.nivelEducacion,
+        datos.fechaNacimiento,
+        datos.genero
+      );
+      // Guarda el nombre en localStorage para mostrarlo en la librería
+      localStorage.setItem('usuarioNombre', datos.nombre);
       this.router.navigate(['/libreria']);
     }
   }

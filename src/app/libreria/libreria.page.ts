@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
+
+
 interface Libro {
   id: string; // o number, según tu preferencia y la base de datos
   titulo: string;
@@ -25,6 +27,7 @@ interface Coleccion {
 export class LibreriaPage implements OnInit {
   usuarioData: any = {};
   mostrarDatos = false;
+  usuarioNombre: string = '';
 
   biblioteca = [
     { titulo: 'Libro 1', descripcion: 'Descripción del libro 1', imagen: '' },
@@ -42,6 +45,7 @@ export class LibreriaPage implements OnInit {
     if (data) {
       this.usuarioData = JSON.parse(data);
     }
+    this.usuarioNombre = localStorage.getItem('usuarioNombre') || 'Usuario';
   }
 
   // Para editar un libro de una colección
@@ -117,8 +121,6 @@ export class LibreriaPage implements OnInit {
       console.log('Cámara cancelada o error:', error);
     }
   }
-
-
 }
 
 
