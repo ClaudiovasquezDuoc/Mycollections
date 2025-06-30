@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { DbserviceService } from '../services/dbservice.service';
 import { GoogleBooksService } from '../services/google-books.service';
+import { Geolocation } from '@capacitor/geolocation';
 
 interface Libro {
   id: string; // o number, según tu preferencia y la base de datos
@@ -170,16 +171,21 @@ export class LibreriaPage implements OnInit {
 
   async guardarNuevoLibro() {
     if (!this.nuevoLibroTitulo) return;
+
+    if (!this.nuevoLibroImagen) {
+      this.nuevoLibroImagen = 'assets/img/sin_imagen.jpg';
+    }
+
+    // Guardar el libro
     await this.dbService.addLibro(
       this.nuevoLibroTitulo,
       this.nuevoLibroDescripcion,
       this.nuevoLibroImagen,
       this.usuarioId
     );
+
+    // Recarga la lista completa para evitar el card vacío
     this.biblioteca = await this.dbService.getLibros(this.usuarioId);
-    this.nuevoLibroTitulo = '';
-    this.nuevoLibroDescripcion = '';
-    this.nuevoLibroImagen = '';
     this.nuevoLibroVisible = false;
   }
 
@@ -227,6 +233,33 @@ export class LibreriaPage implements OnInit {
 
   expandirCard(i: number) {
     this.cardExpandida = this.cardExpandida === i ? null : i;
+  }
+
+  async obtenerYGuardarUbicacion() {
+    try {
+      const position = await Geolocation.getCurrentPosition();
+      const ubicacion = {
+        lat: position.coords.latitude,
+        lng: position.coords.longitude,
+        timestamp: position.timestamp
+      };
+      localStorage.setItem('ubicacion', JSON.stringify(ubicacion));
+      console.log('Ubicación guardada:', ubicacion);
+    } catch (error) {
+      console.error('Error obteniendo ubicación:', error);
+    }
+  }
+
+  async verCoordenadas() {
+    try {
+      const position = await Geolocation.getCurrentPosition();
+      console.log('Datos completos del GPS:', position);
+      console.log('Latitud:', position.coords.latitude);
+      console.log('Longitud:', position.coords.longitude);
+      // Puedes mostrar también la precisión, altitud, etc.
+    } catch (error) {
+      console.error('Error obteniendo ubicación:', error);
+    }
   }
 }
 

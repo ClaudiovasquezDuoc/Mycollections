@@ -11,55 +11,78 @@ import { Router } from '@angular/router';
   standalone: false,
 })
 export class HomePage implements OnInit {
-  usuario: string = '';
-  nombre: string = '';
-  apellido: string = '';
-  nivelEducacion: string = '';
-  fechaNacimiento: string = '';
+  usuario = '';
+  nombre = '';
+  apellido = '';
+  genero = '';
+  nivelEducacion = '';
+  fechaNacimiento = '';
+
+  datosOriginales: any = {};
 
   constructor(
     private modalController: ModalController,
     private router: Router) {}
 
   ngOnInit() {
-    this.usuario = localStorage.getItem('usuario') || '';
+    this.cargarDatos();
+  }
+
+  cargarDatos() {
+    const datos = JSON.parse(localStorage.getItem('usuario') || '{}');
+    this.datosOriginales = { ...datos }; // Guarda los originales
+    this.usuario = datos.usuario || '';
+    this.nombre = datos.nombre || '';
+    this.apellido = datos.apellido || '';
+    this.genero = datos.genero || '';
+    this.nivelEducacion = datos.nivelEducacion || '';
+    this.fechaNacimiento = datos.fechaNacimiento || '';
+  }
+
+  guardarDatos() {
+    // Mantener la contraseña si existe
+    const datosPrevios = JSON.parse(localStorage.getItem('usuario') || '{}');
+    const datos = {
+      usuario: this.usuario,
+      nombre: this.nombre,
+      apellido: this.apellido,
+      genero: this.genero,
+      nivelEducacion: this.nivelEducacion,
+      fechaNacimiento: this.fechaNacimiento,
+      contraseña: datosPrevios.contraseña // Mantener la contraseña existente
+    };
+    localStorage.setItem('usuario', JSON.stringify(datos));
   }
 
   limpiar() {
     this.nombre = '';
     this.apellido = '';
+    this.genero = '';
     this.nivelEducacion = '';
     this.fechaNacimiento = '';
-  }
-    irAlmenuUser(){
-    this.router.navigate(['/libreria']);
+    // Si quieres limpiar también el usuario, descomenta la siguiente línea:
+    // this.usuario = '';
   }
 
   async mostrar() {
     const modal = await this.modalController.create({
       component: DatosModalComponent,
       componentProps: {
+        usuario: this.usuario,
         nombre: this.nombre,
         apellido: this.apellido,
+        genero: this.genero,
         nivelEducacion: this.nivelEducacion,
         fechaNacimiento: this.fechaNacimiento
+        // No incluyas contraseña aquí
       },
-      cssClass: 'modal-tamano-personalizado' // <-- clase personalizada
+      cssClass: 'modal-tamano-personalizado'
     });
     await modal.present();
   }
-  botonEstado: 'guardar' | 'siguiente' = 'guardar';
 
   avanMenu() {
-    // Guardar datos
-    const usuarioData = {
-      nombre: this.nombre,
-      apellido: this.apellido,
-      nivelEducacion: this.nivelEducacion,
-      fechaNacimiento: this.fechaNacimiento
-    };
-    localStorage.setItem('usuarioData', JSON.stringify(usuarioData));
-    // Navegar directamente
+    this.guardarDatos();
     this.router.navigate(['/libreria']);
   }
 }

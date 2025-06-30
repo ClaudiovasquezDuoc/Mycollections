@@ -50,6 +50,7 @@ export class DbserviceService {
           descripcion VARCHAR(250),
           imagen TEXT,
           id_usuario INTEGER,
+          fecha_creacion INTEGER,  -- <-- Agrega este campo
           FOREIGN KEY(id_usuario) REFERENCES usuario(id_usuario)
         )`, []
       );
@@ -99,21 +100,21 @@ export class DbserviceService {
     titulo: string,
     descripcion: string,
     imagen: string,
-    id_usuario: number // Relaciona el libro con el usuario
+    id_usuario: number
   ) {
     await this.dbReady;
+    const fecha_creacion = Date.now();
     if (this.useSQLite) {
-      let data = [titulo, descripcion, imagen, id_usuario];
+      let data = [titulo, descripcion, imagen, id_usuario, fecha_creacion];
       return this.database.executeSql(
-        "INSERT INTO libro (titulo, descripcion, imagen, id_usuario) VALUES (?, ?, ?, ?)",
+        "INSERT INTO libro (titulo, descripcion, imagen, id_usuario, fecha_creacion) VALUES (?, ?, ?, ?, ?)",
         data
       );
     } else {
       // localStorage fallback
       const libros = JSON.parse(localStorage.getItem('libros') || '[]');
-      // Genera un id único usando timestamp
       const id = Date.now();
-      libros.push({ id, titulo, descripcion, imagen, id_usuario});
+      libros.push({ id, titulo, descripcion, imagen, id_usuario, fecha_creacion });
       localStorage.setItem('libros', JSON.stringify(libros));
       return Promise.resolve();
     }
@@ -128,11 +129,12 @@ export class DbserviceService {
         query += ' WHERE id_usuario = ?';
         params = [id_usuario];
       }
+      query += ' ORDER BY fecha_creacion ASC'; // <-- Ordena por fecha ascendente
       const res = await this.database.executeSql(query, params);
       let libros = [];
       for (let i = 0; i < res.rows.length; i++) {
         const libro = res.rows.item(i);
-        libro.id = libro.id_libro; // <-- Mapea id_libro a id
+        libro.id = libro.id_libro;
         libros.push(libro);
       }
       return libros;
@@ -141,6 +143,8 @@ export class DbserviceService {
       if (id_usuario !== undefined) {
         libros = libros.filter((l: any) => l.id_usuario === id_usuario);
       }
+      // Ordena por fecha_creacion ascendente
+      libros.sort((a: any, b: any) => a.fecha_creacion - b.fecha_creacion);
       return libros;
     }
   }
@@ -177,4 +181,8 @@ export class DbserviceService {
       return Promise.resolve();
     }
   }
+
+
+
 }
+

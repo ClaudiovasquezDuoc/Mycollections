@@ -24,7 +24,11 @@
         <p>Nombre</p>
       </ion-col>
       <ion-col size="6" class="ion-text-left">
-        <ion-input type="text" placeholder="Ingrese su nombre" [(ngModel)]="nombre"></ion-input>
+        <ion-input
+          type="text"
+          [placeholder]="datosOriginales.nombre || 'Ingrese su nombre'"
+          [(ngModel)]="nombre">
+        </ion-input>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -32,7 +36,11 @@
         <p>Apellido</p>
       </ion-col>
       <ion-col size="6" class="ion-text-left">
-        <ion-input type="text" placeholder="Ingrese su apellido" [(ngModel)]="apellido"></ion-input>
+        <ion-input
+          type="text"
+          [placeholder]="datosOriginales.apellido || 'Ingrese su apellido'"
+          [(ngModel)]="apellido">
+        </ion-input>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -40,7 +48,10 @@
         <p>Nivel de educación</p>
       </ion-col>
       <ion-col size="6" class="ion-text-left">
-        <ion-select placeholder="Seleccione su nivel de educación" [(ngModel)]="nivelEducacion" name="nivelEducacion">
+        <ion-select
+          [placeholder]="nivelEducacion || 'Seleccione su nivel de educación'"
+          [(ngModel)]="nivelEducacion"
+          name="nivelEducacion">
           <ion-select-option value="primaria">Primaria</ion-select-option>
           <ion-select-option value="secundaria">Secundaria</ion-select-option>
           <ion-select-option value="universidad">Universidad</ion-select-option>
@@ -52,7 +63,11 @@
         <p>Fecha de nacimiento</p>
       </ion-col>
       <ion-col size="4" class="ion-text-left">
-        <ion-input type="date" placeholder="Ingrese su fecha de nacimiento" [(ngModel)]="fechaNacimiento"></ion-input>
+        <ion-input
+          type="date"
+          [placeholder]="fechaNacimiento || 'Ingrese su fecha de nacimiento'"
+          [(ngModel)]="fechaNacimiento">
+        </ion-input>
       </ion-col>
       <ion-col size="2" class="ion-text-left">
         <ion-datetime-button datetime="datetime"></ion-datetime-button>
@@ -61,14 +76,27 @@
         </ion-modal>
       </ion-col>
     </ion-row>
-    
     <ion-row>
-      <ion-col size="4"></ion-col>
-      <ion-col size="2" class="ion-text-left">
-        <ion-button (click)="limpiar()" type="reset" expand="block" fill="solid" color="dark">Limpiar</ion-button>
+      <ion-col size="6" class="ion-text-left">
+        <p>Género</p>
       </ion-col>
-      <ion-col size="2" class="ion-text-right">
-        <ion-button (click)="mostrar()" type="submit" expand="block" fill="solid" color="dark">Mostrar</ion-button>
+      <ion-col size="6">
+        <ion-select
+          [placeholder]="genero || 'Seleccione género'"
+          [(ngModel)]="genero">
+          <ion-select-option value="masculino">Masculino</ion-select-option>
+          <ion-select-option value="femenino">Femenino</ion-select-option>
+          <ion-select-option value="otro">Otro</ion-select-option>
+        </ion-select>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="8"></ion-col>
+      <ion-col size="3" class="ion-text-left">
+        <ion-button (click)="limpiar()" type="reset" expand="block" fill="solid" color="dark">Limpiar Datos</ion-button>
+      </ion-col>
+      <ion-col size="3" class="ion-text-right">
+        <ion-button (click)="mostrar()" type="submit" expand="block" fill="solid" color="dark">Mostrar Datos</ion-button>
       </ion-col>
     </ion-row>
     <ion-row>
