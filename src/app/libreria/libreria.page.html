@@ -33,28 +33,31 @@
     <!-- Biblioteca Carrusel -->
     <div class="biblioteca-container">
       <ion-col size="12" class="ion-text-left">
-        <ion-row> 
+        <ion-row>
           <h2>Mi Biblioteca</h2>
         </ion-row>
       </ion-col>
     </div>
     <div class="mat-carousel-container">
-      <mat-card *ngFor="let card of biblioteca; let i = index" class="mat-carousel-card">
-        <img mat-card-image [src]="card.imagen && card.imagen !== '' ? card.imagen : 'assets/img/sin_imagen.jpg'" alt="Portada del libro" />
+      <mat-card *ngFor="let card of biblioteca; let i = index"
+                class="mat-carousel-card"
+                [ngClass]="{'expandida': cardExpandida === i}"
+                (click)="expandirCard(i)">
+        <img mat-card-image [src]="card.imagen" (error)="card.imagen='assets/img/sin_imagen.jpg'" alt="Portada del libro" />
         <mat-card-header>
           <mat-card-title>{{ card.titulo }}</mat-card-title>
         </mat-card-header>
         <mat-card-content>
-          {{ card.descripcion }}
+          {{ card.descripcion | slice:0:120 }}<span *ngIf="card.descripcion?.length > 120">...</span>
         </mat-card-content>
         <div class="card-actions">
           <button mat-icon-button color="primary" (click)="editarCardBiblioteca(i)">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="eliminarCardBiblioteca(i)">
+          <button mat-icon-button color="warn" (click)="eliminarCardBiblioteca(card)">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button color="accent" (click)="tomarFotoLibro(i)">
+          <button mat-icon-button color="accent" >
             <mat-icon>photo_camera</mat-icon>
           </button>
         </div>
@@ -70,9 +73,20 @@
           <input type="file" (change)="onFileSelected($event, card)">
           <button mat-button color="primary" (click)="guardarEdicionBiblioteca()">Guardar</button>
           <button mat-button (click)="cancelarEdicionBiblioteca()">Cancelar</button>
+
+        </div>
+
+        <!-- Contenido expandido -->
+        <div *ngIf="cardExpandida === i" class="contenido-expandido">
+          <mat-card-content class="descripcion-scrolleable">
+            {{ card.descripcion }}
+          </mat-card-content>
+          <!-- Otros detalles o acciones -->
         </div>
       </mat-card>
-      <mat-card class="mat-carousel-card agregar-card" (click)="agregarCardBiblioteca()">
+      <!-- Card para agregar libro (solo visible si el formulario está cerrado) -->
+      <mat-card *ngIf="!nuevoLibroVisible" class="mat-carousel-card agregar-card"
+        (click)="mostrarFormularioNuevoLibro()">
         <mat-card-header>
           <mat-icon color="primary" fontIcon="add_circle" style="font-size: 48px;"></mat-icon>
           <mat-card-title>Agregar libro</mat-card-title>
@@ -81,5 +95,53 @@
 
     </div>
 
+    <!-- Formulario para agregar nuevo libro con solo iconos -->
+    <div *ngIf="nuevoLibroVisible" class="nuevo-libro-form">
+      <mat-card class="mat-carousel-card">
+        <mat-card-content>
+          <!-- Imagen primero -->
+          <div *ngIf="nuevoLibroImagen" style="display: flex; justify-content: center; margin-bottom: 12px;">
+            <img [src]="nuevoLibroImagen" alt="Previsualización" style="max-width: 120px; max-height: 120px;">
+          </div>
+          <!-- Título -->
+          <mat-form-field style="width: 100%; margin-bottom: 8px;">
+            <input matInput [(ngModel)]="nuevoLibroTitulo" (ngModelChange)="buscarDescripcionLibro($event)"
+              placeholder="Título del libro">
+          </mat-form-field>
+          <!-- Descripción -->
+          <mat-form-field style="width: 100%; margin-bottom: 8px;">
+            <textarea matInput [(ngModel)]="nuevoLibroDescripcion" placeholder="Descripción"></textarea>
+          </mat-form-field>
+          <!-- Iconos de subir/tomar foto en una fila -->
+          <div style="display: flex; gap: 16px; justify-content: center; margin-bottom: 12px;">
+            <button mat-icon-button color="primary" (click)="fileInputNuevoLibro.click()" matTooltip="Subir foto">
+              <mat-icon>upload</mat-icon>
+            </button>
+            <input #fileInputNuevoLibro type="file" accept="image/*" style="display:none"
+              (change)="onFileSelectedNuevoLibro($event)">
+            <button mat-icon-button color="accent" (click)="tomarFotoNuevoLibro()" matTooltip="Tomar foto">
+              <mat-icon>photo_camera</mat-icon>
+            </button>
+            <!-- En tu formulario de nuevo libro -->
+            <button mat-icon-button color="accent" (click)="buscarDescripcionLibro(nuevoLibroTitulo)"
+              matTooltip="Buscar descripción">
+              <mat-icon>search</mat-icon>
+            </button>
+          </div>
+          <!-- Iconos de guardar/cancelar en otra fila -->
+          <div style="display: flex; gap: 16px; justify-content: center;">
+            <button mat-icon-button color="primary" (click)="guardarNuevoLibro()" [disabled]="!nuevoLibroTitulo"
+              matTooltip="Guardar">
+              <mat-icon>check_circle</mat-icon>
+            </button>
+            <button mat-icon-button color="warn" (click)="cerrarFormularioNuevoLibro()" matTooltip="Cancelar">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </div>
+        </mat-card-content>
+      </mat-card>
+    </div>
+
+    <pre *ngIf="apiDebugData">{{ apiDebugData | json }}</pre>
   </ion-content>
 </div>

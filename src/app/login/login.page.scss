@@ -40,3 +40,16 @@ ion-content strong {
     border-radius: 25px;      // Bordes redondeados
     padding: 15px;
 }
+
+.resaltar-registro {
+  background-color: #ff9800 !important;
+  color: #fff !important;
+  transition: background-color 0.5s, color 0.5s;
+  box-shadow: 0 0 10px #ff9800;
+  animation: parpadeo 1s infinite alternate;
+}
+
+@keyframes parpadeo {
+  from { box-shadow: 0 0 10px #ff9800; }
+  to { box-shadow: 0 0 30px #ff9800; }
+}

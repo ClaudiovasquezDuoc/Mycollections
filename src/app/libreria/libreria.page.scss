@@ -48,27 +48,34 @@ ion-content {
   display: none; 
 }
 .mat-carousel-card {
-  min-width: 220px;
-  max-width: 260px;
-  flex: 0 0 auto;
-  cursor: pointer;
-  border-radius: 28px;
-  border: #242424 solid 10px;
+  width: 180px;         /* Ajusta el ancho según prefieras */
+  min-width: 140px;
+  max-width: 200px;
+  height: 260px;        /* Ajusta el alto según prefieras */
+  max-height: 260px;
+  margin: 12px;
+  padding: 8px;
+  display: inline-block;
+  vertical-align: top;
+  transition: box-shadow 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
 }
 .mat-carousel-card:hover {
   transform: scale(1.05);
   transition: transform 0.3s ease;
 }
 .mat-carousel-card img {
-  width: auto;
-  height: 170px;
-  border-radius: 28px 28px 0 0;
-  padding: 2px;
+  max-height: 100px;
+  object-fit: contain;
 }
 .mat-carousel-card h3 {
   font-size: 1.2rem;
   margin: 0.5rem 0;
   padding: 0 1rem;
+}
+.contenido-expandido {
+  max-height: 10px; /* Tamaño expandido */
+  overflow: auto;
 }
 .agregar-card {
   display: flex;
@@ -79,20 +86,14 @@ ion-content {
 }
 .card-actions {
   display: flex;
-  flex-direction: row;
-  gap: 8px;
-  justify-content: flex-end;
-  margin-top: 8px;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 4px;
 }
-.colecciones-container{
-  border-radius: 10px;
-  border-color: #242424;
-  border-style: solid;
-  width: auto;
-  height: 180px;
-}
-.coleccion{
-  border-radius: 25px;
-  border-color: aqua ;
-
+.descripcion-scrolleable {
+  max-height: 60px;
+  overflow-y: auto;
+  font-size: 13px;
+  padding-right: 8px;  /* Espacio para la barra de scroll */
+  white-space: pre-line;
 }

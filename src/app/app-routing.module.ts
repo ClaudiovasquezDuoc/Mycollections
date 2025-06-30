@@ -1,10 +1,21 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthGuard } from './services/auth-guard.service';
+
 
 const routes: Routes = [
   {
+    path: 'libreria',
+    loadChildren: () => import('./libreria/libreria.module').then(m => m.LibreriaPageModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'registro',
+    loadChildren: () => import('./registro/registro.module').then(m => m.RegistroPageModule)
+  },
+  {
     path: 'home',
-    loadChildren: () => import('./home/home.module').then( m => m.HomePageModule)
+    loadChildren: () => import('./home/home.module').then(m => m.HomePageModule)
   },
   {
     path: '',
@@ -13,24 +24,16 @@ const routes: Routes = [
   },
   {
     path: 'inicio',
-    loadChildren: () => import('./inicio/inicio.module').then( m => m.InicioPageModule)
-  },
-  {
-    path: 'libreria',
-    loadChildren: () => import('./libreria/libreria.module').then( m => m.LibreriaPageModule)
+    loadChildren: () => import('./inicio/inicio.module').then(m => m.InicioPageModule)
   },
   {
     path: 'login',
-    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
+    loadChildren: () => import('./login/login.module').then(m => m.LoginPageModule)
   },
   {
     path: 'contacto',
-    loadChildren: () => import('./contacto/contacto.module').then( m => m.ContactoPageModule)
-  },  {
-    path: 'registro',
-    loadChildren: () => import('./registro/registro.module').then( m => m.RegistroPageModule)
-  },
-
+    loadChildren: () => import('./contacto/contacto.module').then(m => m.ContactoPageModule)
+  }
 ];
 
 @NgModule({

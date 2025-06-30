@@ -1,5 +1,5 @@
 <ion-header [translucent]="true">
-  <ion-grid> 
+  <ion-grid>
     <ion-row>
       <ion-col size="12" class="ion-text-center">
         <ion-title id="titulo">My Collections</ion-title>
@@ -27,14 +27,8 @@
                 <p>Usuario</p>
               </ion-col>
               <ion-col size="6" class="ion-text-left">
-                <ion-input
-                  type="text"
-                  placeholder="Ingrese su usuario"
-                  [(ngModel)]="usuario"
-                  name="usuario"
-                  required
-                  pattern="^[a-zA-Z0-9]{3,8}$"
-                  #usuarioCtrl="ngModel">
+                <ion-input type="text" placeholder="Ingrese su usuario" [(ngModel)]="usuario" name="usuario" required
+                  pattern="^[a-zA-Z0-9]{3,8}$" #usuarioCtrl="ngModel">
                 </ion-input>
                 <ion-text color="danger" *ngIf="usuarioCtrl.invalid && usuarioCtrl.touched">
                   <small>
@@ -48,15 +42,8 @@
                 <p>Contraseña</p>
               </ion-col>
               <ion-col size="6" class="ion-text-left">
-                <ion-input
-                  type="password"
-                  placeholder="Ingrese su contraseña"
-                  [(ngModel)]="contrasena"
-                  name="contrasena"
-                  required
-                  pattern="^[0-9]{4}$"
-                  maxlength="4"
-                  #contrasenaCtrl="ngModel">
+                <ion-input type="password" placeholder="Ingrese su contraseña" [(ngModel)]="contrasena"
+                  name="contrasena" required pattern="^[0-9]{4}$" maxlength="4" #contrasenaCtrl="ngModel">
                 </ion-input>
                 <ion-text color="danger" *ngIf="contrasenaCtrl.invalid && contrasenaCtrl.touched">
                   <small>
@@ -70,24 +57,15 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="ion-text-center">
-          <ion-button
-            id="registrarse"
-            fill="clear"
-            color="dark"
-            (click)="irRegistro()">
-            ¿No tienes cuenta? Regístrate aquí
-          </ion-button>
+          <div *ngIf="usuarioInvalido" class="aviso-usuario">
+            <p>No hay usuarios registrados. Debe registrarse primero.</p>
+          </div>
         </ion-col>
       </ion-row>
       <ion-row>
         <ion-col size="4"></ion-col>
         <ion-col size="4" class="ion-text-center ion-align-self-center">
-          <ion-button
-            id="ingresar"
-            expand="full"
-            color="dark"
-            type="submit"
-            [disabled]="loginForm.invalid">
+          <ion-button id="ingresar" expand="full" color="dark" type="submit" [disabled]="loginForm.invalid">
             Ingresar
           </ion-button>
         </ion-col>
@@ -95,4 +73,10 @@
       </ion-row>
     </ion-grid>
   </form>
+  <!-- Botón SIEMPRE visible para registro -->
+  <div class="ion-text-center">
+    <p>¿No tienes cuenta? Regístrate ahora.</p>
+    <ion-button color="dark" class="" (click)="irRegistro()">Ir a registro</ion-button>
+  </div>
+
 </ion-content>
