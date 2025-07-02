@@ -4,6 +4,8 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { DbserviceService } from '../services/dbservice.service';
 import { GoogleBooksService } from '../services/google-books.service';
 import { Geolocation } from '@capacitor/geolocation';
+import { LogrosService } from '../services/logros.service';
+
 
 interface Libro {
   id: string; // o number, según tu preferencia y la base de datos
@@ -39,13 +41,14 @@ export class LibreriaPage implements OnInit {
   nuevoLibroImagen = '';
   nuevoLibroDescripcion = '';
 
+
   apiDebugData: any = null;
 
   private buscarDescripcionTimeout: any;
 
   cardExpandida: number | null = null;
 
-  constructor(private http: HttpClient, private dbService: DbserviceService, private googleBooks: GoogleBooksService) { }
+  constructor(private http: HttpClient, private dbService: DbserviceService, private googleBooks: GoogleBooksService, private logrosService: LogrosService) { }
 
   async ngOnInit() {
     const data = localStorage.getItem('usuarioData');
@@ -94,6 +97,8 @@ export class LibreriaPage implements OnInit {
       nuevoLibro.id_usuario
     );
     this.biblioteca = await this.dbService.getLibros(this.usuarioId);
+    this.logrosService.aumentarCuenta();
+
   }
 
   async tomarFotoLibro(index: number) {
@@ -181,7 +186,8 @@ export class LibreriaPage implements OnInit {
       this.nuevoLibroTitulo,
       this.nuevoLibroDescripcion,
       this.nuevoLibroImagen,
-      this.usuarioId
+      this.usuarioId,
+
     );
 
     // Recarga la lista completa para evitar el card vacío
@@ -261,6 +267,7 @@ export class LibreriaPage implements OnInit {
       console.error('Error obteniendo ubicación:', error);
     }
   }
+
 }
 
 
