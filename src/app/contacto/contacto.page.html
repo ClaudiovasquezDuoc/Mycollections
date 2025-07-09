@@ -24,37 +24,40 @@
       <ion-buttons slot="start">
         <ion-menu-button menu="customMenu"></ion-menu-button>
       </ion-buttons>
-      <ion-title>Skeleton APP</ion-title>
+      <ion-title>My Collections</ion-title>
     </ion-toolbar>
   </ion-header>
 
   <ion-content [fullscreen]="true" class="ion-padding">
     <ion-list>
-      <ion-item 
-        button 
-        (click)="expandido = expandido === 1 ? null : 1"
-        [color]="expandido === 1 ? 'dark' : ''">
+      <ion-item button (click)="expandido = expandido === 1 ? null : 1" [color]="expandido === 1 ? 'dark' : ''">
         <ion-label><strong>¿Quiénes somos?</strong></ion-label>
       </ion-item>
       <div *ngIf="expandido === 1" class="item-expandido">
         <p>
           Presentacion de una aplicación desarrollada para demostrar funcionalidades con Ionic y Angular Material.<br>
-          Nuestro objetivo es brindar una experiencia de usuario intuitiva y atractiva.
+          Nuestro objetivo es brindar una experiencia de usuario intuitiva y atractiva, con el principal fin de guardar
+          nuestras colecciones de libros.
         </p>
       </div>
 
-      <ion-item 
-        button 
-        (click)="expandido = expandido === 2 ? null : 2"
-        [color]="expandido === 2 ? 'dark' : ''">
+      <ion-item button (click)="expandido = expandido === 2 ? null : 2" [color]="expandido === 2 ? 'dark' : ''">
         <ion-label><strong>Contacto</strong></ion-label>
       </ion-item>
       <div *ngIf="expandido === 2" class="item-expandido">
         <p>
-          Email: contacto&#64;skeletonapp.com<br>
+          Email: contacto&#64;mycollections.com<br>
           Teléfono: +56 9 1234 5678
         </p>
       </div>
     </ion-list>
+    <div style="height: 300px; margin-top: 24px; position: relative;">
+      <div id="map" style="height: 100%; width: 100%;"></div>
+      <ion-fab vertical="top" horizontal="end" slot="fixed" style="top:10px; right:10px; z-index:1000;">
+        <ion-fab-button size="small" (click)="centrarEnGPS()">
+          <ion-icon name="locate"></ion-icon>
+        </ion-fab-button>
+      </ion-fab>
+    </div>
   </ion-content>
 </div>
