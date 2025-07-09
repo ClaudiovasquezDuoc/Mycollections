@@ -1,0 +1,77 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Libreria</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div style="text-align:center;">
+    <img [src]="libro.imagen" alt="Portada" style="width:100%;max-width:200px;object-fit:contain;margin:16px auto;">
+    <h2>{{ libro.titulo }}</h2>
+    <p>{{ libro.descripcion }}</p>
+  </div>
+
+  <!-- Puntuación con estrellas -->
+  <div style="text-align:center; margin-bottom: 16px;">
+    <span *ngFor="let star of [1,2,3,4,5]" (mouseenter)="hoverRating = star"
+      (mouseleave)="hoverRating = 0" (click)="setRating(star)" style="cursor:pointer; font-size: 2rem;">
+      <ion-icon [name]="(hoverRating ? star <= hoverRating : star <= rating) ? 'star' : 'star-outline'"></ion-icon>
+    </span>
+    <div style="font-size: 0.9rem; color: #888;">Puntuación: {{ rating }}/5</div>
+  </div>
+
+  <!-- Icono para agregar fotos -->
+  <div style="text-align:center; margin-bottom: 8px;">
+    <ion-button fill="clear" (click)="fileInput.click()" size="small">
+      <ion-icon name="add-circle-outline"></ion-icon> Agregar foto
+    </ion-button>
+    <input #fileInput type="file" accept="image/*" style="display:none" (change)="agregarFoto($event)">
+  </div>
+
+  <!-- Galería scrolleable de fotos -->
+  <div style="display:flex; overflow-x:auto; gap:8px; margin-bottom:16px; padding: 0 8px;">
+    <img *ngFor="let foto of fotos; let i = index"
+         [src]="foto"
+         (click)="abrirFotoGrande(i)"
+         style="height:70px; width:auto; border-radius:8px; cursor:pointer; box-shadow:0 2px 6px #0002;">
+  </div>
+
+  <!-- Visor de foto grande -->
+  <div *ngIf="fotoGrandeIndex !== null" class="visor-foto-grande" (click)="cerrarFotoGrande()">
+    <img [src]="fotos[fotoGrandeIndex]" style="max-width:90vw; max-height:80vh; display:block; margin:auto;">
+  </div>
+
+  <!-- Input para reseña -->
+  <ion-item>
+    <ion-textarea [(ngModel)]="nuevaResena" placeholder="Escribe tu reseña aquí..."></ion-textarea>
+  </ion-item>
+  <div style="text-align:right; margin: 8px;">
+    <ion-button color="dark" size="small" (click)="agregarResena()">Agregar reseña</ion-button>
+  </div>
+
+  <!-- Lista de reseñas -->
+  <ion-list>
+    <ion-item *ngFor="let review of reviews">
+      <ion-label>
+        <p>{{ review.texto }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+  <div style="text-align:right; margin: 8px;">
+    <ion-button color="dark" size="small" (click)="cerrar()">Cerrar</ion-button>
+  </div>
+</ion-content>
+
+<!-- Estilos para el visor de foto grande -->
+<style>
+.visor-foto-grande {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.8);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+</style>

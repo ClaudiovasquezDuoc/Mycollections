@@ -5,7 +5,8 @@ import { DbserviceService } from '../services/dbservice.service';
 import { GoogleBooksService } from '../services/google-books.service';
 import { Geolocation } from '@capacitor/geolocation';
 import { LogrosService } from '../services/logros.service';
-
+import { ModalController } from '@ionic/angular';
+import { CardDetallesPage } from '../modal/card-detalles/card-detalles.page';
 
 interface Libro {
   id: string; // o number, según tu preferencia y la base de datos
@@ -48,7 +49,7 @@ export class LibreriaPage implements OnInit {
 
   cardExpandida: number | null = null;
 
-  constructor(private http: HttpClient, private dbService: DbserviceService, private googleBooks: GoogleBooksService, private logrosService: LogrosService) { }
+  constructor(private http: HttpClient, private dbService: DbserviceService, private googleBooks: GoogleBooksService, private logrosService: LogrosService, private modalController: ModalController) { }
 
   async ngOnInit() {
     const data = localStorage.getItem('usuarioData');
@@ -268,6 +269,16 @@ export class LibreriaPage implements OnInit {
     }
   }
 
+  async openCardDetail(cardData: any) {
+    const modal = await this.modalController.create({
+      component: CardDetallesPage,
+      componentProps: { data: cardData }
+    });
+    return await modal.present();
+  }
+
+
+  
 }
 
 

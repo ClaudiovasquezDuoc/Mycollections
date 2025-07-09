@@ -95,7 +95,7 @@
 
       <!-- Cards de la biblioteca -->
       <mat-card *ngFor="let card of biblioteca; let i = index" class="mat-carousel-card"
-        [ngClass]="{'expandida': cardExpandida === i}" (click)="expandirCard(i)">
+        (click)="openCardDetail(card)">
         <img mat-card-image [src]="card.imagen" (error)="card.imagen='assets/img/sin_imagen.jpg'"
           alt="Portada del libro" />
         <mat-card-header>
@@ -105,13 +105,13 @@
           {{ card.descripcion }}
         </mat-card-content>
         <div class="card-actions">
-          <button mat-icon-button color="primary" (click)="editarCardBiblioteca(i)">
+          <button mat-icon-button color="primary" (click)="editarCardBiblioteca(i); $event.stopPropagation()">
             <mat-icon>edit</mat-icon>
           </button>
-          <button mat-icon-button color="warn" (click)="eliminarCardBiblioteca(card)">
+          <button mat-icon-button color="warn" (click)="eliminarCardBiblioteca(card); $event.stopPropagation()">
             <mat-icon>delete</mat-icon>
           </button>
-          <button mat-icon-button color="accent">
+          <button mat-icon-button color="accent" (click)="$event.stopPropagation()">
             <mat-icon>photo_camera</mat-icon>
           </button>
         </div>
@@ -127,15 +127,6 @@
           <input type="file" (change)="onFileSelected($event, card)">
           <button mat-button color="primary" (click)="guardarEdicionBiblioteca()">Guardar</button>
           <button mat-button (click)="cancelarEdicionBiblioteca()">Cancelar</button>
-
-        </div>
-
-        <!-- Contenido expandido -->
-        <div *ngIf="cardExpandida === i" class="contenido-expandido">
-          <mat-card-content class="descripcion-scrolleable">
-            {{ card.descripcion }}
-          </mat-card-content>
-          <!-- Otros detalles o acciones -->
         </div>
       </mat-card>
     </div>
