@@ -25,7 +25,7 @@
     "@angular/router": "^19.0.0",
     "@awesome-cordova-plugins/core": "^5.46.0",
     "@awesome-cordova-plugins/sqlite": "^5.46.0",
-    "@capacitor/android": "^7.3.0",
+    "@capacitor/android": "^7.4.1",
     "@capacitor/app": "7.0.1",
     "@capacitor/camera": "^7.0.1",
     "@capacitor/core": "^7.4.0",

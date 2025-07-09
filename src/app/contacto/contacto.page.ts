@@ -40,6 +40,15 @@ export class ContactoPage implements AfterViewInit {
     L.marker([lat, lng]).addTo(this.map)
       .bindPopup('Tu ubicación')
       .openPopup();
+
+    // Forzar refresco de tamaño en móviles
+    setTimeout(() => {
+      this.map.invalidateSize();
+    }, 300);
+
+    setTimeout(() => {
+      this.map.invalidateSize();
+    }, 200);
   }
 
   buscarLibrerias(lat: number, lng: number) {

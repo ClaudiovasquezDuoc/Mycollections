@@ -16,6 +16,13 @@ ion-list {
   animation: fadeIn 0.2s;
 }
 
+#map {
+  height: 100% !important;
+  min-height: 300px;
+  width: 100% !important;
+  z-index: 1;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px);}
   to   { opacity: 1; transform: translateY(0);}

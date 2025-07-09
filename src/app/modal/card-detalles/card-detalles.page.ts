@@ -1,6 +1,7 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ModalController, NavParams, ToastController } from '@ionic/angular';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { DbserviceService, Libreria } from 'src/app/services/dbservice.service';
 
 @Component({
   selector: 'app-card-detalles',
@@ -8,27 +9,53 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   styleUrls: ['./card-detalles.page.scss'],
   standalone: false
 })
-export class CardDetallesPage {
-  libro: any;
+export class CardDetallesPage implements OnInit {
+  @Input() libro: any;
+  libreria: Libreria | null = null;
+  fotos: string[] = [];
+  rating = 0;
+  hoverRating: number = 0;
+  reviews: { texto: string }[] = [];
+  nuevaResena: string = '';
   comentarioTexto: string = '';
   comentarioImagen: string = '';
   comentarios: any[] = [];
 
-  rating = 0;
-  hoverRating = 0;
-  nuevaResena = '';
-  reviews: any[] = [];
-
-  fotos: string[] = [];
   fotoGrandeIndex: number | null = null;
 
-  constructor(private navParams: NavParams, private modalCtrl: ModalController, private toastCtrl: ToastController) {
+  constructor(private navParams: NavParams, private modalCtrl: ModalController, private toastCtrl: ToastController, private db: DbserviceService) {
     this.libro = this.navParams.get('data');
   }
 
-  setRating(star: number) {
+  async ngOnInit() {
+    // Cargar datos persistidos de la libreria asociada al libro
+    const librerias = await this.db.getLibrerias(this.libro.id_libro);
+    this.libreria = librerias.length ? librerias[0] : null;
+    if (this.libreria) {
+      this.fotos = this.libreria.imagen ? [this.libreria.imagen] : [];
+      this.rating = this.libreria.rating || 0;
+      // Cargar reseñas persistidas
+      if (this.libreria.resenas) {
+        try {
+          this.reviews = JSON.parse(this.libreria.resenas);
+        } catch {
+          this.reviews = [];
+        }
+      } else {
+        this.reviews = [];
+      }
+    }
+  }
+
+  async setRating(star: number) {
     this.rating = star;
-    // Aquí puedes guardar la puntuación en tu base de datos si lo deseas
+    if (this.libreria) {
+      this.libreria.rating = star;
+      await this.db.actualizarLibreria(this.libreria);
+    } else {
+      // Si no existe, crea la libreria con el rating
+      await this.db.addLibreria(this.libro.id_libro, '', '', '', '', '', '', star);
+    }
   }
 
   cerrar() {
@@ -68,20 +95,32 @@ export class CardDetallesPage {
     toast.present();
   }
 
-  agregarResena() {
-    if (this.nuevaResena.trim()) {
+  async agregarResena() {
+    if (this.nuevaResena && this.nuevaResena.trim()) {
       this.reviews.push({ texto: this.nuevaResena });
       this.nuevaResena = '';
-      // Aquí puedes guardar la reseña en tu base de datos si lo deseas
+      // Guardar reseñas persistentes
+      if (this.libreria) {
+        this.libreria.resenas = JSON.stringify(this.reviews);
+        await this.db.actualizarLibreria(this.libreria);
+      }
     }
   }
 
-  agregarFoto(event: any) {
+  async agregarFoto(event: any) {
     const file = event.target.files[0];
     if (file) {
       const reader = new FileReader();
-      reader.onload = (e: any) => {
-        this.fotos.push(e.target.result);
+      reader.onload = async (e: any) => {
+        const nuevaFoto = e.target.result;
+        this.fotos.push(nuevaFoto);
+        if (this.libreria) {
+          this.libreria.imagen = nuevaFoto;
+          await this.db.actualizarLibreria(this.libreria);
+        } else {
+          // Si no existe, crea la libreria
+          await this.db.addLibreria(this.libro.id_libro, '', '', '', '', '', nuevaFoto);
+        }
       };
       reader.readAsDataURL(file);
     }
