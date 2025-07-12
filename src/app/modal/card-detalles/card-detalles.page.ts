@@ -45,6 +45,14 @@ export class CardDetallesPage implements OnInit {
         this.reviews = [];
       }
     }
+    this.cargarResenas();
+  }
+
+  cargarResenas() {
+    if (this.libro && this.libro.id) {
+      const data = localStorage.getItem(`reseñas_${this.libro.id}`);
+      this.reviews = data ? JSON.parse(data) : [];
+    }
   }
 
   async setRating(star: number) {
@@ -96,14 +104,16 @@ export class CardDetallesPage implements OnInit {
   }
 
   async agregarResena() {
-    if (this.nuevaResena && this.nuevaResena.trim()) {
+    if (this.nuevaResena.trim()) {
       this.reviews.push({ texto: this.nuevaResena });
+      this.guardarResenas();
       this.nuevaResena = '';
-      // Guardar reseñas persistentes
-      if (this.libreria) {
-        this.libreria.resenas = JSON.stringify(this.reviews);
-        await this.db.actualizarLibreria(this.libreria);
-      }
+    }
+  }
+
+  guardarResenas() {
+    if (this.libro && this.libro.id) {
+      localStorage.setItem(`reseñas_${this.libro.id}`, JSON.stringify(this.reviews));
     }
   }
 

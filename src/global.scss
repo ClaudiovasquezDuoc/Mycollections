@@ -35,3 +35,48 @@
 /* @import "@ionic/angular/css/palettes/dark.always.css"; */
 /* @import "@ionic/angular/css/palettes/dark.class.css"; */
 @import "@ionic/angular/css/palettes/dark.system.css";
+
+
+.logro-toast {
+  color: #050505;
+  box-shadow: 0 2px 12px #0002;
+  border-radius: 25px;
+  padding: 8px 16px;
+
+}
+.logro-toast .header {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 4px;
+}
+
+.modal-detalles-personalizado .ion-backdrop,
+ion-modal.modal-detalles-personalizado .ion-backdrop {
+  background: rgba(0,0,0,0.3) !important;
+  backdrop-filter: blur(2px);
+}
+
+
+.modal-detalles-personalizado .modal-wrapper,
+.modal-detalles-personalizado .ion-modal,
+ion-modal.modal-detalles-personalizado .modal-wrapper,
+ion-modal.modal-detalles-personalizado .ion-modal {
+  width: 90vw;
+  max-width: 500px;
+  height: 80vh;
+  border-radius: 24px;
+  background: rgba(255, 229, 80, 0.92);
+  box-shadow: 0 8px 32px #0003;
+  margin: 5vh auto;
+  backdrop-filter: blur(6px);
+}
+
+@media (max-width: 600px) {
+  .modal-detalles-personalizado .modal-wrapper,
+  .modal-detalles-personalizado .ion-modal {
+    width: 98vw;
+    height: 90vh;
+    border-radius: 16px;
+    margin: 2vh auto;
+  }
+}

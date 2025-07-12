@@ -98,7 +98,7 @@ export class LibreriaPage implements OnInit {
       nuevoLibro.id_usuario
     );
     this.biblioteca = await this.dbService.getLibros(this.usuarioId);
-    this.logrosService.aumentarCuenta();
+    this.logrosService.libroCreado();
 
   }
 
@@ -190,7 +190,7 @@ export class LibreriaPage implements OnInit {
       this.usuarioId,
 
     );
-
+    this.logrosService.libroCreado();
     // Recarga la lista completa para evitar el card vacío
     this.biblioteca = await this.dbService.getLibros(this.usuarioId);
     this.nuevoLibroVisible = false;
@@ -269,12 +269,13 @@ export class LibreriaPage implements OnInit {
     }
   }
 
-  async openCardDetail(cardData: any) {
+  async openCardDetail(card: any) {
     const modal = await this.modalController.create({
       component: CardDetallesPage,
-      componentProps: { data: cardData }
+      componentProps: { libro: card },
+      cssClass: 'modal-detalles-personalizado' // <--- tu clase personalizada
     });
-    return await modal.present();
+    await modal.present();
   }
 
 

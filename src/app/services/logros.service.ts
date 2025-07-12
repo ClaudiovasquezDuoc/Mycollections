@@ -1,35 +1,63 @@
 import { Injectable } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { ToastController } from '@ionic/angular';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LogrosService {
+  private cuentaLibros = 0;
+  private logroPrimerLibro = false;
+  private logroTercerLibro = false;
+  private logroCuenta = false;
+  private logroPrimerResena = false;
 
-  private rangos = [1, 3, 5, 7, 10];
-  private cuenta = 0;
+  constructor(private toastController: ToastController) { }
 
-  constructor(private alertController: AlertController) { }
-
-  aumentarCuenta() {
-    this.cuenta++;
-    this.verificarLogro();
-  }
-
-  verificarLogro() {
-    const rangoActual = this.rangos.find(rango => rango === this.cuenta);
-    if (rangoActual) {
-      this.mostrarLogro(rangoActual);
+  // Llama esto al crear un libro
+  libroCreado() {
+    this.cuentaLibros++;
+    if (this.cuentaLibros === 1 && !this.logroPrimerLibro) {
+      this.logroPrimerLibro = true;
+      this.mostrarLogro('Has creado tu primer libro.');
+    }
+    if (this.cuentaLibros === 3 && !this.logroTercerLibro) {
+      this.logroTercerLibro = true;
+      this.mostrarLogro('Has creado tres libros.');
     }
   }
 
-  async mostrarLogro(rango: number) {
-    const alert = await this.alertController.create({
-      header: '¡Logro desbloqueado!',
-      message: `Has alcanzado el rango ${rango} de logros.`,
-      buttons: ['Aceptar']
-    });
-    await alert.present();
+  // Llama esto al crear la cuenta por primera vez
+  async cuentaCreada(duration: number = 3500) {
+    if (!this.logroCuenta) {
+      this.logroCuenta = true;
+      this.mostrarLogro('Has creado tu cuenta.');
+    }
   }
 
+  // Llama esto al agregar la primera reseña
+  resenaAgregada() {
+    if (!this.logroPrimerResena) {
+      this.logroPrimerResena = true;
+      this.mostrarLogro('Has agregado tu primera reseña.');
+    }
+  }
+
+  private async mostrarLogro(mensaje: string) {
+    const toast = await this.toastController.create({
+      header: '¡Logro desbloqueado!',
+      message: `👍 ${mensaje}`,
+      duration: 3500,
+      color: 'secondary',
+      position: 'top',
+      cssClass: 'logro-toast',
+      animated: true,
+      buttons: [
+        {
+          icon: 'close',
+          role: 'cancel'
+        }
+      ]
+    });
+    toast.present();
+  }
 }

@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>Libreria</ion-title>
+    <ion-title class="ion-text-center">Libreria</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -17,7 +17,7 @@
       (mouseleave)="hoverRating = 0" (click)="setRating(star)" style="cursor:pointer; font-size: 2rem;">
       <ion-icon [name]="(hoverRating ? star <= hoverRating : star <= rating) ? 'star' : 'star-outline'"></ion-icon>
     </span>
-    <div style="font-size: 0.9rem; color: #888;">Puntuación: {{ rating }}/5</div>
+    <div style="font-size: 0.9rem; color: #888;">Puntuación1: {{ rating }}/5</div>
   </div>
 
   <!-- Icono para agregar fotos -->
@@ -46,7 +46,7 @@
     <ion-textarea [(ngModel)]="nuevaResena" placeholder="Escribe tu reseña aquí..."></ion-textarea>
   </ion-item>
   <div style="text-align:right; margin: 8px;">
-    <ion-button color="dark" size="small" (click)="agregarResena()">Agregar reseña</ion-button>
+    <ion-button class="align-center-item" color="dark" size="small" (click)="agregarResena()">Agregar reseña</ion-button>
   </div>
 
   <!-- Lista de reseñas -->
@@ -59,7 +59,7 @@
   </ion-list>
 
   <div style="text-align:right; margin: 8px;">
-    <ion-button color="dark" size="small" (click)="cerrar()">Cerrar</ion-button>
+    <ion-button class="align-center" color="dark" size="small" (click)="cerrar()">Cerrar</ion-button>
   </div>
 </ion-content>
 
