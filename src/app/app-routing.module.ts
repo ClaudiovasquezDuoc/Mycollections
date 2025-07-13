@@ -33,7 +33,8 @@ const routes: Routes = [
   {
     path: 'contacto',
     loadChildren: () => import('./contacto/contacto.module').then(m => m.ContactoPageModule)
-  },  {
+  },
+  {
     path: 'card-detalles',
     loadChildren: () => import('./modal/card-detalles/card-detalles.module').then( m => m.CardDetallesPageModule)
   }

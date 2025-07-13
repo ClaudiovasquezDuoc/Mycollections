@@ -8,6 +8,7 @@ import { LogrosService } from '../services/logros.service';
 import { ModalController } from '@ionic/angular';
 import { CardDetallesPage } from '../modal/card-detalles/card-detalles.page';
 import { ChangeDetectorRef } from '@angular/core';
+import { Router } from '@angular/router';
 
 interface Libro {
   id: string; // o number, según tu preferencia y la base de datos
@@ -50,7 +51,7 @@ export class LibreriaPage implements OnInit {
 
   cardExpandida: number | null = null;
 
-  constructor(private http: HttpClient, private dbService: DbserviceService, private googleBooks: GoogleBooksService, private logrosService: LogrosService, private modalController: ModalController, private cdr: ChangeDetectorRef) { }
+  constructor(private router: Router,private http: HttpClient, private dbService: DbserviceService, private googleBooks: GoogleBooksService, private logrosService: LogrosService, private modalController: ModalController, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit() {
     const data = localStorage.getItem('usuarioData');

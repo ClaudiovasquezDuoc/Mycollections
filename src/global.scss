@@ -50,24 +50,3 @@
   font-weight: bold;
   margin-bottom: 4px;
 }
-
-ion-menu::part(backdrop) {
-  background-color: rgba(255, 253, 244, 0.8);
-
-  opacity: 0.8;
-  /* Ajusta la opacidad del fondo */
-  backdrop-filter: blur(5px);
-  /* Aplica un desenfoque al fondo */
-  transition: background-color 0.3s ease, opacity 0.3s ease;
-  /* Transición suave */
-  z-index: 1000;
-}
-ion-menu::part(container) {
-
-  /* Color de fondo del menú */
-  border-radius: 20px;
-  /* Bordes redondeados */
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  /* Sombra para dar profundidad */
-  transition: transform 0.3s ease;
-}
