@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { SQLite, SQLiteObject } from '@awesome-cordova-plugins/sqlite/ngx';
 import { Platform } from '@ionic/angular';
+import { Capacitor } from '@capacitor/core';
 
 @Injectable({
   providedIn: 'root'
@@ -193,7 +194,7 @@ export class DbserviceService {
       );
     } else {
       let libros = JSON.parse(localStorage.getItem('libros') || '[]');
-      libros = libros.filter((l: any) => l.id !== id);
+      libros = libros.filter((l: any) => String(l.id) !== String(id));
       localStorage.setItem('libros', JSON.stringify(libros));
       return Promise.resolve();
     }

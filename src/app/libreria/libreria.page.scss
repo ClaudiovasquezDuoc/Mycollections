@@ -1,9 +1,11 @@
+
+//NO TOCAR//
 .datos-bloque {
-  background: rgba(40, 40, 40, 0.7);
+  background: rgba(253, 51, 51, 0.7);
   border-radius: 16px;
   padding: 1rem;
   margin-top: 2rem;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+  box-shadow: 0 4px 16px rgba(255, 77, 77, 0.15);
   max-width: 320px;      // Cambia el ancho máximo
   margin-left: 0;        // Alinea a la izquierda
   margin-right: auto;    // El resto del espacio queda a la derecha
@@ -29,8 +31,8 @@
   to   { opacity: 1; transform: translateY(0);}
 }
 ion-content {
-  --background: #adadad;
-  color: #fff; // Texto blanco para contraste
+    --background: #fff2c5;
+    padding: 20px;
 }
 
 .mat-carousel-container {
@@ -41,18 +43,19 @@ ion-content {
   scrollbar-width: none; 
   -ms-overflow-style: none; 
   border-radius: 28px;
-  background: rgba(209, 209, 209, 0.7);
-  
+  background: #fae9aa;
+  border: #fae6a5 12px solid;
+
 }
 .mat-carousel-container::-webkit-scrollbar {
   display: none; 
 }
 
 .mat-carousel-card {
-  width: 180px;         // o el ancho que prefieras
+  width: 280px;         // o el ancho que prefieras
   min-width: 140px;
   max-width: 200px;
-  height: 450px;        // Altura total de la card
+  height: 348px;        // Altura total de la card
   display: flex;
   flex-direction: column;
   position: relative;
@@ -70,8 +73,8 @@ ion-content {
 
 .mat-carousel-card:hover {
   transform: scale(1.05);
-  height: 450px;        // Cambiado a 450px
-  max-height: 450px;    // Cambiado a 450px
+  height: 348px;        // Cambiado a 450px
+  max-height: 350px;    // Cambiado a 450px
   transition: 
     transform 0.3s ease,
     height 0.3s ease,
@@ -79,16 +82,22 @@ ion-content {
 }
 .mat-carousel-card mat-card-header,
 .mat-carousel-card mat-card-title {
-  margin-bottom: 0;
-  padding-bottom: 0;
+  margin-bottom: 2px;
+  padding-bottom: 2px;
   font-size: 1.1rem; // Ajusta el tamaño si lo deseas
   line-height: 1.2;
 }
-
+.mat-carousel-card mat-card-title {
+  font-weight: bold;
+  color: #333; // Color del título
+  text-transform: uppercase;
+  font-size: 1rem; // Tamaño del título
+  text-align: center;
+}
 .mat-carousel-card img {
   max-height: 120px;
   object-fit: contain;
-  margin-bottom: 4px;
+  margin-bottom: 0;
 }
 
 .descripcion-scrolleable {
@@ -111,18 +120,4 @@ ion-content {
   background: #fff; // Opcional, para que no se superponga el scroll
   padding: 8px 0;
   z-index: 2;
-}
-
-.ver.cordenadas {
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  background: rgba(87, 90, 250, 0.5);
-  color: #d7f88a;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }

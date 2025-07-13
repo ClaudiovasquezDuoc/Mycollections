@@ -1,4 +1,4 @@
-<ion-header >
+<ion-header>
   <ion-title>Mis Colecciones</ion-title>
 </ion-header>
 
@@ -10,10 +10,12 @@
           <h1>Registrar una cuenta</h1>
         </ion-col>
       </ion-row>
-      <ion-row >
-        <ion-col size="10" class="col-personalizada">
+      <ion-row>
+        <ion-col size="4" class="ion-text-center ion-align-items-center">
+          <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Nombre</ion-label>
+        </ion-col>
+        <ion-col size="8">
           <ion-item class="ion-align-items-center">
-            <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Nombre</ion-label>
             <ion-input formControlName="nombre"></ion-input>
           </ion-item>
           <ion-text color="danger" *ngIf="registroForm.get('nombre')?.invalid && registroForm.get('nombre')?.touched">
@@ -23,67 +25,83 @@
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="12" class="col-personalizada">
+        <ion-col size="4" class="ion-text-center">
+          <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Apellido</ion-label>
+        </ion-col>
+        <ion-col size="8">
           <ion-item class="ion-align-items-center">
-            <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Apellido</ion-label>
             <ion-input formControlName="apellido"></ion-input>
           </ion-item>
-          <ion-text color="danger" *ngIf="registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched">
+          <ion-text color="danger"
+            *ngIf="registroForm.get('apellido')?.invalid && registroForm.get('apellido')?.touched">
             <small *ngIf="registroForm.get('apellido')?.errors?.['required']">El apellido es obligatorio.</small>
             <small *ngIf="registroForm.get('apellido')?.errors?.['pattern']">Solo letras, sin números.</small>
           </ion-text>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="12" class="col-personalizada">
+        <ion-col size="4" class="ion-text-center">
+          <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Contraseña</ion-label>
+        </ion-col>
+        <ion-col size="8">
           <ion-item class="ion-align-items-center">
-            <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Contraseña</ion-label>
-            <ion-input
-              [type]="showPassword ? 'text' : 'password'"
-              formControlName="contraseña">
+            <ion-input [type]="showPassword ? 'text' : 'password'" formControlName="contraseña">
             </ion-input>
             <ion-button fill="clear" slot="end" type="button" (click)="showPassword = !showPassword">
               <ion-icon [name]="showPassword ? 'eye-off-outline' : 'eye-outline'"></ion-icon>
             </ion-button>
           </ion-item>
-          <ion-text color="danger" *ngIf="registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched">
+          <ion-text color="danger"
+            *ngIf="registroForm.get('contraseña')?.invalid && registroForm.get('contraseña')?.touched">
             <small *ngIf="registroForm.get('contraseña')?.errors?.['required']">La contraseña es numérica</small>
             <small *ngIf="registroForm.get('contraseña')?.errors?.['pattern']">Solo 4 números</small>
           </ion-text>
         </ion-col>
       </ion-row>
       <ion-row>
-        <ion-col size="12" class="col-personalizada">
+        <ion-col size="4" class="ion-text-center">
+          <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Nivel de
+            educación</ion-label>
+        </ion-col>
+        <ion-col size="8">
           <ion-item class="ion-align-items-center">
-            <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Nivel de educación</ion-label>
             <ion-select formControlName="nivelEducacion" placeholder="Seleccione su nivel de educación">
               <ion-select-option value="primaria">Primaria</ion-select-option>
               <ion-select-option value="secundaria">Secundaria</ion-select-option>
               <ion-select-option value="universidad">Universidad</ion-select-option>
             </ion-select>
           </ion-item>
-          <ion-text color="danger" *ngIf="registroForm.get('nivelEducacion')?.invalid && registroForm.get('nivelEducacion')?.touched">
-            <small *ngIf="registroForm.get('nivelEducacion')?.errors?.['required']">El nivel de educación es obligatorio.</small>
+          <ion-text color="danger"
+            *ngIf="registroForm.get('nivelEducacion')?.invalid && registroForm.get('nivelEducacion')?.touched">
+            <small *ngIf="registroForm.get('nivelEducacion')?.errors?.['required']">El nivel de educación es
+              obligatorio.</small>
           </ion-text>
         </ion-col>
       </ion-row>
       <!-- Fecha de nacimiento -->
-      <ion-row class="ion-align-items-center">
-        <ion-col class="col-personalizada" size="4" size-sm="4" style="display: flex; align-items: center;">
-          <ion-label class="label-personalizado" style="min-width: 120px;">Fecha de nacimiento</ion-label>
+      <ion-row>
+        <ion-col size="4" class="ion-text-center">
+          <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Fecha de
+            nacimiento</ion-label>
         </ion-col>
-        <ion-col class="col-personalizada" size="6" size-sm="8">
-          <ion-datetime-button datetime="fechaNacimientoModal" expand="block"></ion-datetime-button>
-          <ion-text color="danger" *ngIf="registroForm.get('fechaNacimiento')?.invalid && registroForm.get('fechaNacimiento')?.touched">
-            <small *ngIf="registroForm.get('fechaNacimiento')?.errors?.['required']">La fecha de nacimiento es obligatoria.</small>
+        <ion-col size="8">
+          <ion-item class="ion-align-items-center">
+            <ion-datetime-button datetime="fechaNacimientoModal" expand="block"></ion-datetime-button>
+          </ion-item>
+          <ion-text color="danger"
+            *ngIf="registroForm.get('fechaNacimiento')?.invalid && registroForm.get('fechaNacimiento')?.touched">
+            <small *ngIf="registroForm.get('fechaNacimiento')?.errors?.['required']">La fecha de nacimiento es
+              obligatoria.</small>
           </ion-text>
         </ion-col>
       </ion-row>
       <!--Genero-->
       <ion-row>
-        <ion-col size="12" class="col-personalizada">
+        <ion-col size="4" class="ion-text-center">
+          <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Género</ion-label>
+        </ion-col>
+        <ion-col size="8">
           <ion-item class="ion-align-items-center">
-            <ion-label class="label-personalizado" position="start" style="min-width: 120px;">Género</ion-label>
             <ion-select formControlName="genero" placeholder="Seleccione su género">
               <ion-select-option value="masculino">Masculino</ion-select-option>
               <ion-select-option value="femenino">Femenino</ion-select-option>
@@ -97,11 +115,7 @@
       </ion-row>
       <ion-row>
         <ion-col size="12" class="boton-centro">
-          <ion-button
-            expand="block"
-            color="dark"
-            type="submit"
-            [disabled]="!registroForm.valid">
+          <ion-button expand="block" color="dark" type="submit" [disabled]="!registroForm.valid">
             <ion-icon slot="start" name="save-outline"></ion-icon>
             Guardar y continuar
           </ion-button>
@@ -111,13 +125,8 @@
       <!-- El modal debe ir aquí, DENTRO del form -->
       <ion-modal [keepContentsMounted]="true">
         <ng-template>
-          <ion-datetime
-            id="fechaNacimientoModal"
-            formControlName="fechaNacimiento"
-            presentation="date"
-            done-text="Aceptar"
-            cancel-text="Cancelar"
-            placeholder="Selecciona fecha">
+          <ion-datetime id="fechaNacimientoModal" formControlName="fechaNacimiento" presentation="date"
+            done-text="Aceptar" cancel-text="Cancelar" placeholder="Selecciona fecha">
           </ion-datetime>
         </ng-template>
       </ion-modal>

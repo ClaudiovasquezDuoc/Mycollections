@@ -1,6 +1,6 @@
-ion-header {
+ion-header,ion-toolbar {
     padding: 20px 20px 20px 20px;
-    background-color: #6a6a6b;
+    background-color: #ffd036;
     border-radius: 0px 0px 30px 30px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     ion-title {
@@ -10,20 +10,21 @@ ion-header {
     }
 }
 ion-content {
-    --background: #adadad;
+    --background: #fff2c5;
     padding: 20px;
 }
 
 ion-content h1 {
     font-size: 24px;
     font-weight: 600;
-    color: #fbfbff;
+    color: #000000;
     text-align: center;
     padding: 20px;
 }
 ion-content p {
-    font-size: 16px;
-    color: #ffffff;
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
     text-align: center;
 }
 ion-content ion-input {
@@ -33,23 +34,65 @@ ion-content ion-input {
     --border-radius: 20px;
 }
 ion-content strong {
-    color: #2a1de3;
+    color: #4bf745;
 }
+
+ion-input {
+    background-color: #fff;
+    color: #333;
+    border-radius: 25px; // Bordes redondeados
+    border: #facd03ab solid 2px;
+    text-align: center;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: bold;
+
+}
+
+
 #ingresar::part(native) {
     font-size: 16px;
-    border-radius: 25px;      // Bordes redondeados
+    border-radius: 25px; // Bordes redondeados
     padding: 15px;
 }
 
+ion-button.boton-registro::part(native) {
+    background-color: #fc9724;
+    color: #ffffff;
+    border-radius: 25px;
+    padding: 15px 32px;
+    font-size: 16px;
+    border: 2px solid #bb8900;
+    box-shadow: 0 2px 8px rgba(167, 117, 158, 0.3);
+    transition:
+        background 0.3s,
+        color 0.3s,
+        border-color 0.3s,
+        box-shadow 0.3s;
+}
+
+ion-button.boton-registro:hover::part(native),
+ion-button.boton-registro:focus::part(native) {
+    background-color: #ff5202;
+    color: #ffa217;
+    border-color: #ffe550;
+    box-shadow: 0 4px 16px #d8b101;
+}
+
 .resaltar-registro {
-  background-color: #ff9800 !important;
-  color: #fff !important;
-  transition: background-color 0.5s, color 0.5s;
-  box-shadow: 0 0 10px #ff9800;
-  animation: parpadeo 1s infinite alternate;
+    background-color: #ff9800 !important;
+    color: #fff !important;
+    transition: background-color 0.5s, color 0.5s;
+    box-shadow: 0 0 10px #ff9800;
+    animation: parpadeo 1s infinite alternate;
 }
 
 @keyframes parpadeo {
-  from { box-shadow: 0 0 10px #ff9800; }
-  to { box-shadow: 0 0 30px #ff9800; }
+    from {
+        box-shadow: 0 0 10px #ff9800;
+    }
+
+    to {
+        box-shadow: 0 0 30px #ff9800;
+    }
 }

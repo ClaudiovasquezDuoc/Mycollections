@@ -1,122 +1,143 @@
-<ion-header [translucent]="true">
-    <ion-title>Mis Coleciones</ion-title>
-</ion-header>
+<ion-app mode="md"></ion-app>
+<ion-menu side="start" menuId="customMenu" contentId="main-content">
+  <ion-header>
+    <ion-toolbar color="warning">
+      <ion-title>Menú</ion-title>
+    </ion-toolbar>
+  </ion-header>
+  <ion-content>
+    <ion-list>
+      <ion-item routerLink="/libreria" routerDirection="root">
+        <ion-icon name="book" slot="start" color="warning"></ion-icon>
+        <ion-label>Libreria</ion-label>
+      </ion-item>
+      <ion-item routerLink="/contacto" routerDirection="root">
+        <ion-icon name="book" slot="start" color="warning"></ion-icon>
+        <ion-label>Acerca</ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-menu>
 
-<ion-content [fullscreen]="true">
-  <ion-grid>
-    <ion-row>
-      <ion-col size="12" class="ion-text-center">
-        <h1>Bienvenido!</h1>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6" class="ion-text-left">
-        <p>Usuario: {{ usuario }}</p>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12" class="ion-text-center">
-        <h2>Informacion Adicional</h2>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6" class="ion-text-left">
-        <p>Nombre</p>
-      </ion-col>
-      <ion-col size="6" class="ion-text-left">
-        <ion-input
-          type="text"
-          [placeholder]="datosOriginales.nombre || 'Ingrese su nombre'"
-          [(ngModel)]="nombre">
-        </ion-input>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6" class="ion-text-left">
-        <p>Apellido</p>
-      </ion-col>
-      <ion-col size="6" class="ion-text-left">
-        <ion-input
-          type="text"
-          [placeholder]="datosOriginales.apellido || 'Ingrese su apellido'"
-          [(ngModel)]="apellido">
-        </ion-input>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6" class="ion-text-left">
-        <p>Nivel de educación</p>
-      </ion-col>
-      <ion-col size="6" class="ion-text-left">
-        <ion-select
-          [placeholder]="nivelEducacion || 'Seleccione su nivel de educación'"
-          [(ngModel)]="nivelEducacion"
-          name="nivelEducacion">
-          <ion-select-option value="primaria">Primaria</ion-select-option>
-          <ion-select-option value="secundaria">Secundaria</ion-select-option>
-          <ion-select-option value="universidad">Universidad</ion-select-option>
-        </ion-select>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6" class="ion-text-left">
-        <p>Fecha de nacimiento</p>
-      </ion-col>
-      <ion-col size="4" class="ion-text-left">
-        <ion-input
-          type="date"
-          [placeholder]="fechaNacimiento || 'Ingrese su fecha de nacimiento'"
-          [(ngModel)]="fechaNacimiento">
-        </ion-input>
-      </ion-col>
-      <ion-col size="2" class="ion-text-left">
-        <ion-datetime-button datetime="datetime"></ion-datetime-button>
-        <ion-modal [keepContentsMounted]="true">
-          <ion-datetime id="datetime"></ion-datetime>
-        </ion-modal>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="6" class="ion-text-left">
-        <p>Género</p>
-      </ion-col>
-      <ion-col size="6">
-        <ion-select
-          [placeholder]="genero || 'Seleccione género'"
-          [(ngModel)]="genero">
-          <ion-select-option value="masculino">Masculino</ion-select-option>
-          <ion-select-option value="femenino">Femenino</ion-select-option>
-          <ion-select-option value="otro">Otro</ion-select-option>
-        </ion-select>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="8"></ion-col>
-      <ion-col size="3" class="ion-text-left">
-        <ion-button (click)="limpiar()" type="reset" expand="block" fill="solid" color="dark">Limpiar Datos</ion-button>
-      </ion-col>
-      <ion-col size="3" class="ion-text-right">
-        <ion-button (click)="mostrar()" type="submit" expand="block" fill="solid" color="dark">Mostrar Datos</ion-button>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col size="12" class="boton-centro" >
-        <ion-button 
-          expand="block" 
-          color="dark"
-          (click)="avanMenu()">
-          <ion-icon slot="start" name="save-outline"></ion-icon>
-          Guardar y continuar
-        </ion-button>
-      </ion-col>
-    </ion-row>
-  </ion-grid>
-</ion-content>
-<ion-footer>
-  <ion-toolbar>
+<div class="ion-page" id="main-content">
+  <ion-header [translucent]="true">
+    <ion-toolbar color="warning">
+      <ion-buttons slot="start">
+        <ion-menu-button menu="customMenu"></ion-menu-button>
+      </ion-buttons>
+      <ion-title>Mis Colecciones</ion-title>
+    </ion-toolbar>
+  </ion-header>
 
-    <ion-title>App desarrollada por Claudio Vasquez</ion-title>
+  <!-- Contenido principal -->
 
-  </ion-toolbar>
-</ion-footer>
+  <ion-content>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <h1>Bienvenido!</h1>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="3"></ion-col>
+        <ion-col size="6" class="ion-text-center">
+          <p>Usuario: {{ usuario }}</p>
+        </ion-col>
+        <ion-col size="3"></ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="ion-text-center">
+          <h2>Informacion Adicional</h2>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" class="ion-text-center">
+          <p>Nombre</p>
+        </ion-col>
+        <ion-col size="6" class="ion-text-left">
+          <ion-input type="text" [placeholder]="datosOriginales.nombre || 'Ingrese su nombre'" [(ngModel)]="nombre">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" class="ion-text-center">
+          <p>Apellido</p>
+        </ion-col>
+        <ion-col size="6" class="ion-text-left">
+          <ion-input type="text" [placeholder]="datosOriginales.apellido || 'Ingrese su apellido'"
+            [(ngModel)]="apellido">
+          </ion-input>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" class="ion-text-center">
+          <p>Nivel de educación</p>
+        </ion-col>
+        <ion-col size="6" class="ion-text-left">
+          <ion-item class="ion-align-items-center">
+            <ion-select [placeholder]="nivelEducacion || 'Seleccione su nivel de educación'"
+              [(ngModel)]="nivelEducacion" name="nivelEducacion">
+              <ion-select-option value="primaria">Primaria</ion-select-option>
+              <ion-select-option value="secundaria">Secundaria</ion-select-option>
+              <ion-select-option value="universidad">Universidad</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" class="ion-text-center">
+          <p>Fecha de nacimiento</p>
+        </ion-col>
+        <ion-col size="6" class="ion-text-left">
+          <ion-input type="date" [placeholder]="fechaNacimiento || 'Ingrese su fecha de nacimiento'"
+            [(ngModel)]="fechaNacimiento">
+          </ion-input>
+        </ion-col>
+        <ion-col size="2" class="ion-text-left">
+          <ion-datetime-button datetime="datetime"></ion-datetime-button>
+          <ion-modal [keepContentsMounted]="true">
+            <ion-datetime id="datetime"></ion-datetime>
+          </ion-modal>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" class="ion-text-center">
+          <p>Género</p>
+        </ion-col>
+        <ion-col size="6">
+          <ion-item class="ion-align-items-center">
+            <ion-select [placeholder]="genero || 'Seleccione género'" [(ngModel)]="genero">
+              <ion-select-option value="masculino">Masculino</ion-select-option>
+              <ion-select-option value="femenino">Femenino</ion-select-option>
+              <ion-select-option value="otro">Otro</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="6" class="ion-text-center">
+          <ion-button (click)="limpiar()" type="reset" expand="block" fill="solid" color="dark">Limpiar
+            Datos</ion-button>
+        </ion-col>
+        <ion-col size="6" class="ion-text-center">
+          <ion-button (click)="mostrar()" type="submit" expand="block" fill="solid" color="dark">Mostrar
+            Datos</ion-button>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="12" class="boton-centro">
+          <ion-button expand="block" color="dark" (click)="avanMenu()">
+            <ion-icon slot="start" name="save-outline"></ion-icon>
+            Guardar y continuar
+          </ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-content>
+  <ion-footer>
+    <ion-toolbar>
 
+      <h5>App desarrollada por Claudio Vasquez</h5>
+
+    </ion-toolbar>
+  </ion-footer>

@@ -1,6 +1,6 @@
 
 ion-content {
-    --background: #adadad;
+    --background: #fff2c5;
     padding: 20px;
 }
 ion-list {
@@ -8,12 +8,13 @@ ion-list {
   border-radius: 12px; 
 }
 .item-expandido {
-  background: #9e9e9e;
+  background: #f7e7a1;
   color: #39393a;
   border-radius: 0 0 12px 12px;
   margin: 0 16px 16px 16px;
   padding: 1rem;
   animation: fadeIn 0.2s;
+  border: #ffe172 8px solid;
 }
 
 #map {

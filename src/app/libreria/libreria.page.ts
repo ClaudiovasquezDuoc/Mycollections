@@ -7,6 +7,7 @@ import { Geolocation } from '@capacitor/geolocation';
 import { LogrosService } from '../services/logros.service';
 import { ModalController } from '@ionic/angular';
 import { CardDetallesPage } from '../modal/card-detalles/card-detalles.page';
+import { ChangeDetectorRef } from '@angular/core';
 
 interface Libro {
   id: string; // o number, según tu preferencia y la base de datos
@@ -49,7 +50,7 @@ export class LibreriaPage implements OnInit {
 
   cardExpandida: number | null = null;
 
-  constructor(private http: HttpClient, private dbService: DbserviceService, private googleBooks: GoogleBooksService, private logrosService: LogrosService, private modalController: ModalController) { }
+  constructor(private http: HttpClient, private dbService: DbserviceService, private googleBooks: GoogleBooksService, private logrosService: LogrosService, private modalController: ModalController, private cdr: ChangeDetectorRef) { }
 
   async ngOnInit() {
     const data = localStorage.getItem('usuarioData');
@@ -138,6 +139,7 @@ export class LibreriaPage implements OnInit {
   async eliminarCardBiblioteca(card: any) {
     await this.dbService.eliminarLibro(card.id);
     this.biblioteca = await this.dbService.getLibros(this.usuarioId);
+    this.cdr.detectChanges();
   }
 
   mostrarFormularioNuevoLibro() {
@@ -273,7 +275,7 @@ export class LibreriaPage implements OnInit {
     const modal = await this.modalController.create({
       component: CardDetallesPage,
       componentProps: { libro: card },
-      cssClass: 'modal-detalles-personalizado' // <--- tu clase personalizada
+      cssClass: 'modal-detalles-personalizado' 
     });
     await modal.present();
   }

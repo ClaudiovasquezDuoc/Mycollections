@@ -1,8 +1,8 @@
-<ion-header [translucent]="true">
+<ion-header class="custom-header">
   <ion-grid>
     <ion-row>
       <ion-col size="12" class="ion-text-center">
-        <ion-title id="titulo">My Collections</ion-title>
+        <ion-title id="titulo">Mis colecciones</ion-title>
       </ion-col>
       <ion-col size="12" class="ion-text-center">
         <ion-title id="subtitulo">Bienvenido</ion-title>
@@ -11,7 +11,7 @@
   </ion-grid>
 </ion-header>
 
-<ion-content id="contenido" [fullscreen]="true">
+<ion-content id="contenido" class="custom-content">
   <form #loginForm="ngForm" (ngSubmit)="ingresar()">
     <ion-grid>
       <ion-row>
@@ -65,7 +65,7 @@
       <ion-row>
         <ion-col size="4"></ion-col>
         <ion-col size="4" class="ion-text-center ion-align-self-center">
-          <ion-button id="ingresar" expand="full" color="dark" type="submit" [disabled]="loginForm.invalid">
+          <ion-button id="ingresar" expand="full" color="warning" type="submit" [disabled]="loginForm.invalid">
             Ingresar
           </ion-button>
         </ion-col>
@@ -74,9 +74,17 @@
     </ion-grid>
   </form>
   <!-- Botón SIEMPRE visible para registro -->
-  <div class="ion-text-center">
-    <p>¿No tienes cuenta? Regístrate ahora.</p>
-    <ion-button color="dark" class="" (click)="irRegistro()">Ir a registro</ion-button>
-  </div>
+  <ion-footer class="custom-footer">
+    <div class="ion-text-center">
+      <h5>¿No tienes cuenta? Regístrate ahora.</h5>
+      <ion-row>
+        <ion-col size="3"></ion-col>
+        <ion-col size="6" class="ion-text-center ion-align-self-center">
+          <ion-button expand="full" class="boton-registro" (click)="irRegistro()">Ir a registro</ion-button>
+        </ion-col>
+        <ion-col size="3"></ion-col>
+      </ion-row>
+    </div>
+  </ion-footer>
 
 </ion-content>
