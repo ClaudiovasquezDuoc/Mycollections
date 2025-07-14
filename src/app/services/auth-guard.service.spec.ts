@@ -1,13 +1,21 @@
 import { TestBed } from '@angular/core/testing';
+import { AuthGuard } from './auth-guard.service';
+import { SQLite } from '@awesome-cordova-plugins/sqlite/ngx';
 
-import { AuthGuardService } from './auth-guard.service';
+class SQLiteMock {
+  create() { return Promise.resolve({}); }
+}
 
-describe('AuthGuardService', () => {
-  let service: AuthGuardService;
+describe('AuthGuard', () => {
+  let service: AuthGuard;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(AuthGuardService);
+    TestBed.configureTestingModule({
+      providers: [
+        { provide: SQLite, useClass: SQLiteMock }
+      ]
+    });
+    service = TestBed.inject(AuthGuard);
   });
 
   it('should be created', () => {
